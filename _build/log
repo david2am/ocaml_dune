@@ -1,0 +1,6 @@
+# dune init proj ocaml_dune
+# OCAMLPARAM: unset
+# Shared cache: enabled-except-user-rules
+# Shared cache location: /Users/daviddevargas/.cache/dune/db
+# Workspace root: /Users/daviddevargas/dev/tutos/ocaml_dune
+# Auto-detected concurrency: 12
