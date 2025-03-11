@@ -1,6 +1,81 @@
-# dune init proj ocaml_dune
+# dune exec -w ocaml_dune
 # OCAMLPARAM: unset
 # Shared cache: enabled-except-user-rules
 # Shared cache location: /Users/daviddevargas/.cache/dune/db
 # Workspace root: /Users/daviddevargas/dev/tutos/ocaml_dune
 # Auto-detected concurrency: 12
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; instrument_with = []
+#  }
+$ /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlc.opt -config > /var/folders/wc/0vzlzfl134z4nkcxz7vkx8lr0000gn/T/dune_b5d78b_output
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -bin-annot -bin-annot-occurrences -I lib/.lib.objs/byte -no-alias-deps -opaque -o lib/.lib.objs/byte/lib.cmo -c -impl lib/lib.ml-gen)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamldep.opt -modules -impl lib/math.ml) > _build/default/lib/.lib.objs/lib__Math.impl.d
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I lib/.lib.objs/byte -no-alias-deps -opaque -open Lib -o lib/.lib.objs/byte/lib__Math.cmo -c -impl lib/math.ml)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I bin/.main.eobjs/byte -I lib/.lib.objs/byte -no-alias-deps -opaque -o bin/.main.eobjs/byte/dune__exe__Main.cmi -c -intf bin/main.mli)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I lib/.lib.objs/byte -I lib/.lib.objs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o lib/.lib.objs/native/lib.cmx -c -impl lib/lib.ml-gen)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.lib.objs/byte -I lib/.lib.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I lib/.lib.objs/byte -I lib/.lib.objs/native -intf-suffix .ml -no-alias-deps -opaque -open Lib -o lib/.lib.objs/native/lib__Math.cmx -c -impl lib/math.ml)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -a -o lib/lib.cmxa lib/.lib.objs/native/lib.cmx lib/.lib.objs/native/lib__Math.cmx)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/main.exe lib/lib.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.lib.objs/byte -I lib/.lib.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/main.exe lib/lib.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.lib.objs/byte -I lib/.lib.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/main.exe lib/lib.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamldep.opt -modules -intf lib/math.mli) > _build/default/lib/.lib.objs/lib__Math.intf.d
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I lib/.lib.objs/byte -no-alias-deps -opaque -open Lib -o lib/.lib.objs/byte/lib__Math.cmi -c -intf lib/math.mli)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I bin/.main.eobjs/byte -I lib/.lib.objs/byte -no-alias-deps -opaque -o bin/.main.eobjs/byte/dune__exe__Main.cmi -c -intf bin/main.mli)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.lib.objs/byte -I lib/.lib.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
+> File "bin/main.ml", line 4, characters 15-23:
+> 4 |   let result = Math.add 2 3 in
+>                    ^^^^^^^^
+> Error: Unbound value Math.add
+[2]
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I lib/.lib.objs/byte -I lib/.lib.objs/native -intf-suffix .ml -no-alias-deps -opaque -open Lib -o lib/.lib.objs/native/lib__Math.cmx -c -impl lib/math.ml)
+> File "lib/math.ml", line 1, characters 4-7:
+> 1 | let add x y = x + y
+>         ^^^
+> Error (warning 32 [unused-value-declaration]): unused value add.
+>
+> File "lib/math.ml", line 3, characters 4-7:
+> 3 | let sub x y = x - y
+>         ^^^
+> Error (warning 32 [unused-value-declaration]): unused value sub.
+[2]
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamldep.opt -modules -intf lib/math.mli) > _build/default/lib/.lib.objs/lib__Math.intf.d
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I lib/.lib.objs/byte -no-alias-deps -opaque -open Lib -o lib/.lib.objs/byte/lib__Math.cmi -c -intf lib/math.mli)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I bin/.main.eobjs/byte -I lib/.lib.objs/byte -no-alias-deps -opaque -o bin/.main.eobjs/byte/dune__exe__Main.cmi -c -intf bin/main.mli)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.lib.objs/byte -I lib/.lib.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
+> File "bin/main.ml", line 6, characters 15-23:
+> 6 |   let result = Math.sub 3 1 in
+>                    ^^^^^^^^
+> Error: Unbound value Math.sub
+[2]
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I lib/.lib.objs/byte -I lib/.lib.objs/native -intf-suffix .ml -no-alias-deps -opaque -open Lib -o lib/.lib.objs/native/lib__Math.cmx -c -impl lib/math.ml)
+> File "lib/math.ml", line 3, characters 4-7:
+> 3 | let sub x y = x - y
+>         ^^^
+> Error (warning 32 [unused-value-declaration]): unused value sub.
+[2]
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamldep.opt -modules -intf lib/math.mli) > _build/default/lib/.lib.objs/lib__Math.intf.d
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I lib/.lib.objs/byte -no-alias-deps -opaque -open Lib -o lib/.lib.objs/byte/lib__Math.cmi -c -intf lib/math.mli)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I lib/.lib.objs/byte -I lib/.lib.objs/native -intf-suffix .ml -no-alias-deps -opaque -open Lib -o lib/.lib.objs/native/lib__Math.cmx -c -impl lib/math.ml)
+> File "lib/math.ml", line 3, characters 4-7:
+> 3 | let sub x y = x - y
+>         ^^^
+> Error (warning 32 [unused-value-declaration]): unused value sub.
+[2]
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamldep.opt -modules -intf lib/math.mli) > _build/default/lib/.lib.objs/lib__Math.intf.d
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I lib/.lib.objs/byte -no-alias-deps -opaque -open Lib -o lib/.lib.objs/byte/lib__Math.cmi -c -intf lib/math.mli)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I bin/.main.eobjs/byte -I lib/.lib.objs/byte -no-alias-deps -opaque -o bin/.main.eobjs/byte/dune__exe__Main.cmi -c -intf bin/main.mli)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.lib.objs/byte -I lib/.lib.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I lib/.lib.objs/byte -I lib/.lib.objs/native -intf-suffix .ml -no-alias-deps -opaque -open Lib -o lib/.lib.objs/native/lib__Math.cmx -c -impl lib/math.ml)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -a -o lib/lib.cmxa lib/.lib.objs/native/lib.cmx lib/.lib.objs/native/lib__Math.cmx)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/main.exe lib/lib.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamldep.opt -modules -intf lib/math.mli) > _build/default/lib/.lib.objs/lib__Math.intf.d
+$ (cd _build/default && /Users/daviddevargas/dev/tutos/ocaml_dune/_opam/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I lib/.lib.objs/byte -no-alias-deps -opaque -open Lib -o lib/.lib.objs/byte/lib__Math.cmi -c -intf lib/math.mli)
