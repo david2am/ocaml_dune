@@ -18,7 +18,7 @@
 (package
  (name ocaml_dune)
  (synopsis "Learn Ocaml in Dune from the ground up")
- (description "This is an begginer's Ocaml")
+ (description "This is an begginer's Ocaml tutorial")
  (depends ocaml)
  (tags
   ("ocaml" "dune" "begginer" "tutorial")))

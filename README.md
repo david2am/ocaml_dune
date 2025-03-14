@@ -1,8 +1,9 @@
 - This Ocaml/Dune tutorial comes from official documentation and also from
 [Getting Started with OCAML with Pedro Cattori...](https://www.youtube.com/watch?v=FtI5hxDcVKU&t=2190s).  
-Thank you guys for such amazing video, I think that we need more of that to come accross to learn Ocaml for ourselves, and that is  
-also my motor to write this small tuto 🫰
+Thank you guys for such amazing video, I think we need more project oriented intro tutorias to come accross to learn Ocaml for ourselves,  
+and that's also my motor to write this small tuto 🫰
 - [OcamlVerse](https://ocamlverse.net/content/quickstart_ocaml_project_dune.html)
+- [Dune](https://dune.readthedocs.io/en/stable/tutorials/developing-with-dune)
 
 *Note:* This article contains also notes for Ocaml maintainers, which is a great community and I know my feedback is
 going to be well received.
