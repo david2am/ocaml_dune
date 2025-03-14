@@ -1,16 +1,21 @@
-- This Ocaml/Dune tutorial comes from official documentation and also from
-[Getting Started with OCAML with Pedro Cattori...](https://www.youtube.com/watch?v=FtI5hxDcVKU&t=2190s).  
-Thank you guys for such amazing video, I think we need more project oriented intro tutorias to come accross to learn Ocaml for ourselves,  
-and that's also my motor to write this small tuto 🫰
-- [OcamlVerse](https://ocamlverse.net/content/quickstart_ocaml_project_dune.html)
-- [Dune](https://dune.readthedocs.io/en/stable/tutorials/developing-with-dune)
+# OCaml/Dune Tutorial
 
-*Note:* This article contains also notes for Ocaml maintainers, which is a great community and I know my feedback is
-going to be well received.
+This tutorial is based on the official OCaml documentation and the video [Getting Started with OCaml with Pedro Cattori...](https://www.youtube.com/watch?v=FtI5hxDcVKU&t=2190s). Thank you for creating such an amazing video! More project-oriented tutorials are needed to help developers learn OCaml effectively. This tutorial is my contribution to the community. 🫰
 
-# Ocaml Initial Setup
+## References
 
-## Install Ocaml
+- [OCamlVerse](https://ocamlverse.net/content/quickstart_ocaml_project_dune.html)
+- [Dune Documentation](https://dune.readthedocs.io/en/stable/tutorials/developing-with-dune)
+
+*Note:* This article also includes notes for OCaml maintainers. The OCaml community is welcoming, and I trust that my feedback will be well-received.
+
+ Happy coding! 🚀
+
+---
+
+# OCaml Initial Setup
+
+## Installing OCaml
 
 ```sh
 brew install opam
@@ -18,27 +23,27 @@ opam init -y
 eval $(opam env)
 ```
 
-- [reference](https://ocaml.org/docs/installing-ocaml)
-- *Note:* It's necessary to add Ocaml's env variables through `eval $(opam env)` everytime you enter in a new terminal, so maybe  
-  you are interested to add the command to your `.bashrc` or `.zshrc` file  
+- [Reference](https://ocaml.org/docs/installing-ocaml)  
 
-**opam** is the Ocaml's package manager, if you came from the web, it's equivalent to **npm**; it handles your *packages* and also your *switches*  
-(more of this below 👨‍🔧).
+*Note:* You need to run `eval $(opam env)` every time you open a new terminal. To automate this, add the command to your `.bashrc` or `.zshrc` file.
 
-## Install Platform Tools
+**opam** is OCaml's package manager, similar to **npm** in the web development world. It manages packages and compiler versions.
+
+## Installing Essential Tools
 
 ```sh
 opam install ocaml-lsp-server odoc ocamlformat utop
 ```
 
-Platform tools are going to help you write your Ocaml code and projects, it includes the lsp-server and **dune**.  
+These platform tools assist in writing and managing OCaml projects. They include the **OCaml LSP server** and **Dune**.
 
-**dune** is Ocaml's build system, it automates compilation, testing, documentation generation and other build tasks.
+**Dune** is OCaml's build system, automating compilation, testing, and documentation generation.
 
+---
 
-# New Project Setup
+# Setting Up a New Project
 
-## Create and Execute a New Project
+## Creating and Running a New Project
 
 ```sh
 dune init proj {project_name}
@@ -46,11 +51,11 @@ dune build
 dune exec {project_name}
 ```
 
-- [reference](https://dune.readthedocs.io/en/stable/quick-start.html)
+- [Reference](https://dune.readthedocs.io/en/stable/quick-start.html)  
 
-## Setup Git and `.gitignore`
+## Initializing Git and `.gitignore`
 
-Create a `.gitignore` file
+Create a `.gitignore` file:
 
 ```sh
 # .gitignore
@@ -58,14 +63,13 @@ _opam/
 _build/
 ```
 
-And don't forget to init your git
+Initialize your Git repository:
 
 ```sh
 git init
 ```
 
-
-## Create a New Switch
+## Creating a New Switch
 
 ```sh
 opam switch create . {compiler_version} --deps-only
@@ -73,54 +77,52 @@ opam init --enable-shell-hook
 eval $(opam env)
 ```
 
-**opam switch** is like Python's virtual environments, its purpose is to isolate the compilers and package versions for different projects to  
-avoid versioning conflicts between each other.  
+**opam switch** is similar to Python's virtual environments. It isolates compilers and package versions for different projects, preventing conflicts.
 
-Normally `opam init` install all your current packages and your current project as another package itself, to avoid this you explicitly use the  
-`--deps-only` flag.  
+- The `--deps-only` flag ensures that only dependencies are installed, not the current project.
+- `opam init --enable-shell-hook` is needed only once to enable automatic switch handling.
+- You still need to run `eval $(opam env)` each time you switch projects.
 
-`opam init --enable-shell-hook` is needed just once, it automatically updates your switch from one project to another, but it's still  
-necessary to activate your switch env variables every time by running `eval $(opam env)`.
+- [Reference](https://ocaml.org/docs/opam-switch-introduction#creating-a-new-switch)  
 
-- [reference](https://ocaml.org/docs/opam-switch-introduction#creating-a-new-switch)
-- *Note:* running `--deps-only` is basically running `npm install` in the web world
+*Note:* Running `--deps-only` is similar to running `npm install` in JavaScript projects.
 
-- *Note for Ocaml maintainers:*
-  1. it would be great if we could find a link to a list of the different compiler versions directly in the switch docs.
-  2. it's not clear for me why we should use `--deps-only` have you considered this as the default behavior? so we could avoid  
-     to be aware of having to write this, (althoug maybe it's a different mindset and I have to adapt)
-  3. it would be great if we avoid having to run `eval $(opam env)` every time
+### Feedback for OCaml Maintainers
 
-## Install Platform Tools for the Switch
+- A direct link to available compiler versions in the switch documentation would be helpful.
+- Making `--deps-only` the default behavior could simplify setup.
+- Avoiding the need to manually run `eval $(opam env)` every time a switch is activated would improve the developer experience.
+
+## Installing Tools for the New Switch
 
 ```sh
 opam install ocaml-lsp-server odoc ocamlformat utop
 ```
 
-It's specially necessary if you are using a modal code editor like `vim` or `helix` (I'm using helix BTW!)
+This step is especially necessary if you use a modal code editor like Vim or Helix.
+
+---
+
+# Understanding Project Structure
+
+Your OCaml code resides in `.ml` files, each accompanied by a `dune` file containing metadata used by **Dune**. This metadata is written in S-expression format, similar to how GitHub Actions use `YAML` or JavaScript projects use `JSON`.
+
+### Folder Structure Overview
+
+- `lib/` - Contains your Ocaml modules, alias (your reusable code)
+- `bin/` - Contains your executable programs,  (*"the code"*)
+- `_opam/` — Stores project dependencies.
+- `_build/` — Contains build artifacts.
+- `dune-project` — Equivalent to package.json in JavaScript or requirements.txt in Python.
+- `bin/main.ml` — The application’s entry point.
 
 
 
-## General Description and Folder Structure
+# Creating Your First Module
 
-Your OCaml code resides in `.ml` files. Each `.ml` file is accompanied by a corresponding `dune` file, which contains metadata that **Dune**  
-uses to process the `.ml` file. This metadata is written in S-expression format, the configuration language of Dune—similar to how GitHub  
-Actions use `YAML` or Node.js projects use `JSON`.
+## Defining a Library Module
 
-### The folder structure:
-
-- `lib` folder contains your Ocaml modules, alias your reusable code 
-- `bin` folder contains your executable programs, alias *"the code"*
-- `_opam` folder contains your project dependencies
-
-- `dune-project` file is your `package.json` equivalent in JavaScript or your `requirements.txt` equivalent in Python.
-- `bin/main.ml` is your entry point
-
-
-
-# Create Your First Module
-
-Create your first `dune` file
+Create a `dune` file for your module:
 
 ```ml
 (* lib/dune *)
@@ -128,73 +130,70 @@ Create your first `dune` file
  (name lib))
 ```
 
-Create your new module:
+Create your module:
 
 ```ml
 (* lib/math.ml *)
 let add x y = x + y
-
 let sub x y = x - y
 ```
 
-Register your module to make it accessible from the `main.ml` file in `bin/dune`
+## Registering the Module in `bin/dune`
 
 ```ml
 (* bin/dune *)
 (executable
  (public_name ocaml_dune)
  (name main)
- (libraries lib)) (* add this line *)
+ (libraries lib)) (* Include your module *)
 ```
 
-Use it!
+## Using the Module in `main.ml`
 
 ```ml
 (* bin/main.ml *)
-open Lib (* import your module *)
+open Lib (* Import your module *)
 
 let () =
   let result = Math.add 2 3 in
-  print_endline (Int.to_string result); (* ans: 5 *)
+  print_endline (Int.to_string result); (* Output: 5 *)
   let result = Math.sub 3 1 in
-  print_endline (Int.to_string result) (* ans: 2 *)
+  print_endline (Int.to_string result) (* Output: 2 *)
 ```
 
-## Execute Your Code
+## Running the Project
 
 ```sh
 dune exec -w {project_name}
 ```
 
-Ocaml is a compiled language, which means that it has 2 execution steps:
-1. buid
-2. exec
+OCaml is a compiled language, meaning execution involves two steps:
+1. **Build**
+2. **Execute**
 
-With the previous command you run both steps at the same time, as you will imagine `-w` means watch mode.
+The above command combines both steps, and the `-w` flag enables watch mode.
 
-*Note:*
-- As a result of the build process **dune** creates the `_build` folder, it contains Ocaml's compiler artifacts
+*Note:* **Dune** creates a `_build` folder containing OCaml's compiled artifacts.
 
+---
 
-## Create `.mli` File
+# Creating an Interface File (`.mli`)
 
-By default all your Ocaml expressions in `math.ml` are shared with the `main.ml`, sometimes you would want to expose just some. For this
-it's helpfull create Ocaml's intercafe file (`.mli`) where you define your Ocaml's module types.
-
+By default, all expressions in `math.ml` are accessible in `main.ml`. To control visibility, create an **interface file** (`.mli`) that defines the module’s public API.
 
 ```ml
 (* lib/math.mli *)
 val add : int -> int -> int
-(** [add x y] returns the result of x + y. *)
+(** [add x y] returns the sum of x and y. *)
 ```
 
-Now you would see an error because sub is no longer accessible, let add its definition:
+Attempting to use `sub` will now result in an error. To expose it, update `math.mli`:
 
 ```ml
 (* lib/math.mli *)
 val add : int -> int -> int
-(** [add x y] returns the result of x + y. *)
+(** [add x y] returns the sum of x and y. *)
 
 val sub : int -> int -> int
-(** [sub x y] returns the result of x - y. *)
+(** [sub x y] returns the difference of x and y. *)
 ```
