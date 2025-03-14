@@ -30,7 +30,7 @@ eval $(opam env)
 opam install ocaml-lsp-server odoc ocamlformat utop
 ```
 
-Platform tools are going to help you write your Ocaml code and projects, it includes the lsp-server and dune.  
+Platform tools are going to help you write your Ocaml code and projects, it includes the lsp-server and **dune**.  
 
 **dune** is Ocaml's build system, it automates compilation, testing, documentation generation and other build tasks.
 
@@ -67,7 +67,7 @@ git init
 ## Create a New Switch
 
 ```sh
-opam switch create . {compiler_option} --deps-only
+opam switch create . {compiler_version} --deps-only
 opam init --enable-shell-hook
 eval $(opam env)
 ```
@@ -86,11 +86,9 @@ necessary to activate your switch env variables every time by running `eval $(op
 
 - *Note for Ocaml maintainers:*
   1. it would be great if we could find a link to a list of the different compiler versions directly in the switch docs.
-  2. what if instead of writing `ocaml-base-compiler.5.2.1` as the compiler version we could use like `ocaml.5` and bring the  
-     LTS current version unless we choose a specific version?
-  3. it's not clear for me why we should use `--deps-only` have you considered this as the default behavior? so we could avoid  
+  2. it's not clear for me why we should use `--deps-only` have you considered this as the default behavior? so we could avoid  
      to be aware of having to write this, (althoug maybe it's a different mindset and I have to adapt)
-  4. it would be great if we avoid having to run `eval $(opam env)` every time
+  3. it would be great if we avoid having to run `eval $(opam env)` every time
 
 ## Install Platform Tools for the Switch
 
@@ -104,18 +102,19 @@ It's specially necessary if you are using a modal code editor like `vim` or `hel
 
 ## General Description and Folder Structure
 
-Your OCaml code resides in `.ml` files. Each `.ml` file is accompanied by a corresponding `dune` file, which contains metadata that Dune  
+Your OCaml code resides in `.ml` files. Each `.ml` file is accompanied by a corresponding `dune` file, which contains metadata that **Dune**  
 uses to process the `.ml` file. This metadata is written in S-expression format, the configuration language of Dune—similar to how GitHub  
 Actions use `YAML` or Node.js projects use `JSON`.
 
-Within the project, you have 2 main folders: `bin` and `lib`:
+### The folder structure:
 
 - `lib` folder contains your Ocaml modules, alias your reusable code 
 - `bin` folder contains your executable programs, alias *"the code"*
+- `_opam` folder contains your project dependencies
 
-BTW, `bin/main.ml` is your entry point
+- `dune-project` file is your `package.json` equivalent in JavaScript or your `requirements.txt` equivalent in Python.
+- `bin/main.ml` is your entry point
 
-The `ocaml_dune.opam` file is your `package.json` equivalent.
 
 
 # Create Your First Module
@@ -172,10 +171,14 @@ Ocaml is a compiled language, which means that it has 2 execution steps:
 
 With the previous command you run both steps at the same time, as you will imagine `-w` means watch mode.
 
+*Note:*
+- As a result of the build process **dune** creates the `_build` folder, it contains Ocaml's compiler artifacts
+
 
 ## Create `.mli` File
 
-By default all your Ocaml expressions in `math.ml` are shared with the `main.ml`, sometimes you would want to expose just some
+By default all your Ocaml expressions in `math.ml` are shared with the `main.ml`, sometimes you would want to expose just some. For this
+it's helpfull create Ocaml's intercafe file (`.mli`) where you define your Ocaml's module types.
 
 
 ```ml

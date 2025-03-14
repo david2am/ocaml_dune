@@ -5,9 +5,9 @@
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github david2am/reponame))
 
-(authors "Author Name <author@example.com>")
+(authors "David @ dvccueter@gmail.com")
 
 (maintainers "Maintainer Name <maintainer@example.com>")
 
@@ -17,10 +17,10 @@
 
 (package
  (name ocaml_dune)
- (synopsis "A short synopsis")
- (description "A longer description")
+ (synopsis "Learn Ocaml in Dune from the ground up")
+ (description "This is an begginer's Ocaml")
  (depends ocaml)
  (tags
-  ("add topics" "to describe" your project)))
+  ("ocaml" "dune" "begginer" "tutorial")))
 
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/reference/dune-project/index.html
