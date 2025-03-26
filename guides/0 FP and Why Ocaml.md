@@ -1,4 +1,4 @@
-# Functional Programming and Why Is It In OCaml?
+# Functional Programming and Why OCaml?
 
 I'd like to express my gratitude to Richard Feldman for his incredible teachings in Functional Programming and to Professor Michael Ryan Clarkson for creating such a wonderful course.
 
@@ -111,13 +111,19 @@ let mapped = List.map (fun x -> x * 2) numbers  (* Creates new list [2; 4; 6] *)
 
 To apply those principles FP uses:
 
-✅ Expressions  
+✅ * **Expressions**  
+✅ * **Lexical Scope**  
 ✅ Pure Functions  
-✅ First-Class Functions
+✅ First-Class Functions  
+
+FP revolves around the use of **expressions** and **lexical scope**. Pure functions and closures are natural byproducts of expressions and well-defined scope.  
+
+While not covered here, these concepts also serve as the foundation of recursion, partial applications (or currying), lazy evaluation and more, which we will explore in depth in a future article.
+
 
 ## Expressions
 
-Roughly, expressions are code constructs that evaluate to a value without altering the program's state. In FP, even control structures like if-then-else return values!
+Expressions are code constructs that evaluate to a value without altering the program's state. In FP, even control structures like if-then-else return values!
 
 **Examples:**
 ```ml
@@ -136,7 +142,22 @@ let val2 (* value declaration *)
 computation_2 (arg = val1) (* modifies val2 *)
 ```
 
-As illustrated, traditional computations can lead to side effects, resulting in code that is difficult to maintain.
+As illustrated, traditional computations can lead to side effects, making code harder to maintain. On the other hand, expressions always return values, **encouraging** that evaluation take place outside their scope, avoiding mutations and side effects on other internal scopes.
+
+
+## Lexical Scope 
+
+In lexical scoping, the scope of a variable is determined by its location within the source code, specifically where it is declared. This means that the scope is resolved at compile time based on the structure of the code, rather than at runtime based on the execution context, which makes it easier to reason about in comparison with dynamic scoping for example.
+
+### Function Parameters
+Internally, they act as value copies rather than references to the original arguments. This prevents unintended modifications to the original data.
+
+### Local variables and immutability
+Variables declared within a specific scope (such as inside a function) are intended to be immutable, reinforcing predictability and referential transparency.
+
+### Lexical Scoping and Closure
+When a higher-order function creates a closure, it captures variables from its surrounding scope. These captured variables are usually treated as immutable within the closure, ensuring they remain consistent across different function executions. This also helps prevent unexpected modifications from other parts of the program, reducing shared-state complexity and race conditions in concurrent execution.
+
 
 ## Pure Functions
 
@@ -151,9 +172,12 @@ let square x = x * x
 square 4
 ```
 
+In other words, are expressions that **have no** side effects at all.
+
+
 ## First-Class Functions
 
-In FP functions are special type of values, as such they can be treated as arguments, return values, or assigned to variables.
+In functional programming, functions are a special type of value. This means they can be passed as arguments, returned from other functions, and assigned to variables. Functions that take other functions as arguments or return functions as results are called **higher-order functions**. These enable function composition and closure creation, which, as discussed earlier, establish their own scope and help avoid shared state between entities.
 
 **Example:**
 ```ocaml
@@ -164,6 +188,7 @@ let apply_twice f x = f (f x)
 let result1 = apply_twice (fun x -> x * 2) 3    (* Returns 12 *)
 let result2 = apply_twice (fun x -> x ^ "!") "hi"  (* Returns "hi!!" *)
 ```
+
 
 ---
 
@@ -242,7 +267,7 @@ let increment () = counter := !counter + 1
 let increment count = count + 1
 ```
 
-But OCaml still adheres to FP principles:
+But OCaml still adheres to FP principles:  
 ✔︎ No Side Effects  
 ✔︎ No Shared State  
 ✔︎ Immutable Data 

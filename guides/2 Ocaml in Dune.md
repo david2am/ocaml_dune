@@ -31,7 +31,7 @@ eval $(opam env)
 
 **opam** is OCaml's package manager, similar to **npm** in the web development world. It manages packages and compiler versions.
 
-## Installing Essential Tools
+## Installing Platform Tools
 
 ```sh
 opam install ocaml-lsp-server odoc ocamlformat utop
