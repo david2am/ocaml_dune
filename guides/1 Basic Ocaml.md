@@ -1,6 +1,6 @@
 # Basic OCaml
 
-<img src="../imgs/to_rule_them_all.png" width="300" height="200" alt="Congratulations!">
+![One article to rule them all](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tx64r92ywj5o1mwg9k39.png)
 <meta property="og:image" content="../imgs/to_rule_them_all.png">
 <meta property="og:title" content="An Article to Rule Them All">
 <meta property="og:description" content="Exploring OCaml in depth">
@@ -1114,4 +1114,4 @@ sum [1; 2; 3; 4];;
 
 You've arrived at the final part of the article. Now you have the big picture of OCaml and can write your own code!
 
-<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExODczNzBtejBwZnRlajE4ZTBtYTM0bmRmb2gxdHVqcm5zbHhwcXhrcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT0xeORDq3lChYerTi/giphy.gif" width="300" height="200" alt="Congratulations!">
+![Now you have powers!](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExODczNzBtejBwZnRlajE4ZTBtYTM0bmRmb2gxdHVqcm5zbHhwcXhrcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT0xeORDq3lChYerTi/giphy.gif)

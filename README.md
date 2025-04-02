@@ -15,7 +15,7 @@ Happy coding/reading! 🚀
 
 0. **FP and Why OCaml**
    Discover why Functional Programming will change the way you think about programming, and why OCaml is a great starting point.
-1. **OCaml in Dune**
-   Build your first **Dune** project and run OCaml locally without REPLs.
-2. **Learn OCaml Basics**
+1. **Basic Ocaml**
    Learn OCaml syntax and the fundamentals of Functional Programming.
+2. **OCaml in Dune**
+   Build your first **Dune** project and run OCaml locally without REPLs.
