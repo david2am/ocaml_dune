@@ -1,12 +1,12 @@
 # Basic OCaml
 
 ![One article to rule them all](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tx64r92ywj5o1mwg9k39.png)
-<meta property="og:image" content="../imgs/to_rule_them_all.png">
+
+<meta property="og:image" content="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tx64r92ywj5o1mwg9k39.png">
 <meta property="og:title" content="An Article to Rule Them All">
 <meta property="og:description" content="Exploring OCaml in depth">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="../imgs/to_rule_them_all.png">
-
+<meta name="twitter:image" content="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tx64r92ywj5o1mwg9k39.png">
 
 Welcome to this beginner-friendly OCaml tutorial! My goal is to make this your ultimate introduction to the language, covering all the fundamental concepts in a structured, easy-to-follow way. Each new topic builds upon the previous ones, ensuring a smooth learning experience.
 
@@ -60,6 +60,7 @@ To follow this tutorial, you can use **Utop**, OCaml's REPL (recommended), or **
 3. Run the command `utop` to start the interactive OCaml toplevel.
 
 Additionally:
+
 - To evaluate an expression in **Utop**, end each expression with `;;` and then press `Enter`.
 - To exit, execute the command `#quit;;`.
 
@@ -74,6 +75,7 @@ In OCaml, expressions are code constructs that evaluate to a value without alter
 A value is an expression that doesn't need further evaluation. Let's explore some examples in OCaml:
 
 ### Integers
+
 ```ml
 1;;
 (* : int = 1 *)
@@ -89,6 +91,7 @@ Int.max 3 7;;
 ```
 
 ### Booleans
+
 ```ml
 false;;
 (* : bool = false *)
@@ -101,12 +104,14 @@ Bool.to_string true;;
 ```
 
 ### Chars
+
 ```ml
 'd';;
 (* : char = 'd' *)
 ```
 
 ### Strings
+
 ```ml
 "hola!";;
 (* : string = "hola" *)
@@ -125,6 +130,7 @@ String.uppercase_ascii "hola mundo!";;
 ```
 
 ### Floats
+
 ```ml
 1.0;;
 (* : float = 1.0 *)
@@ -140,6 +146,7 @@ Float.round 6.2;;
 ```
 
 OCaml distinguishes between integer and float operators, which helps the language infer type definitions directly from used operators. For example:
+
 - `2.5 *. 5.` is valid.
 - `7.5 +. 3` is invalid because the operator `+.` requires both numbers to be of type float.
 
@@ -164,6 +171,7 @@ if "pineapple pizza" > "pizza margherita" then "Non sei italiano" else "Tu sei u
 ```
 
 ### Particularities
+
 - **condition expression** should evaluate to boolean.
 - Both branch expressions should have the same type.
 - **else branch** is required.
@@ -268,6 +276,7 @@ let x = 7 in let y = 3 in x + y;;
 ```
 
 In this example:
+
 - `x` is meaningful within subexpression B, but not before.
 - Similarly, `y` is meaningful within subexpression A, but not before.
 
@@ -352,7 +361,9 @@ let increment x = x + 1;;
 List.map increment [1; 2; 3; 4];;
 (* : int list = [2; 3; 4; 5] *)
 ```
+
 **Explanation:**
+
 - List.map takes two arguments: a function (increment) and a list ([1; 2; 3; 4]).
 - It applies the increment function to each element of the list, returning a new list with the incremented values.
 
@@ -363,6 +374,7 @@ High-order functions enable you to write more modular and reusable code by abstr
 Closures refer to the ability of a function to capture and "remember" the environment in which it was created. This means that a function can access variables from its surrounding scope, even after that scope has finished executing.
 
 **Example: Multiplier Function**
+
 ```ml
 let make_multiplier factor =
   fun x -> x * factor
@@ -377,7 +389,8 @@ triple 5;;
 (* : int = 15 *)
 ```
 
-**Explanation:**  
+**Explanation:**
+
 - `make_multiplier` is a function that takes a factor and returns another function.
 - The returned function is a closure that captures the factor from its surrounding scope.
 - `double` and `triple` are instances of this closure, each capturing a different value for factor.
@@ -449,6 +462,7 @@ And so on.
 Functional programming prefers recursive functions over loops because they can be pure functions that call themselves without producing side effects, or at least producing only **external side effects**.
 
 A recursive function has two parts:
+
 - **Base Case**: Defines the simplest version of the problem, which stops the recursion.
 - **Recursive Case**: Defines the nth term, how the function calls itself with a smaller input, progressively reducing the problem toward the base case.
 
@@ -463,41 +477,9 @@ let rec factorial n =
 ```
 
 **Breakdown:**
+
 - **Base Case**: The function stops when `n = 0`, returning `1`. This prevents infinite recursion.
 - **Recursive Case**: The function calls itself with `n - 1`, reducing the problem step by step until it reaches the base case.
-
-### Tail Recursion
-
-**Tail Recursion** is an optimization technique where a function call is the last action in a function. This allows the compiler to reuse the current function's stack frame for the next function call, preventing stack overflow and improving performance.
-
-Steps to Apply Tail Recursion:
-1. Identify the Base Case and Recursive Case: Determine the condition under which the recursion should stop (base case) and the part of the function that makes the recursive call (recursive case).
-2. Introduce an Accumulator: Add an additional parameter to the function, known as an accumulator, which will store the intermediate results of the computation.
-3. Modify the Recursive Call: Change the recursive call so that it passes the accumulator as an argument, and ensure that the recursive call is the last operation in the function.
-4. Update the Base Case: Modify the base case to return the accumulator instead of performing additional computation.
-
-**Example: Factorial Function**  
-Let's convert a non-tail-recursive factorial function into a tail-recursive one.
-
-Non-Tail-Recursive Version:
-```ml
-let rec factorial n =
-  if n = 0 then 1
-  else n * factorial (n - 1) (* here: the multiplication is the last operation, so it's not tail recursive *)
-```
-
-Tail-Recursive Version:
-```ml
-let rec factorial_tail n acc =
-  if n = 0 then acc
-  else factorial_tail (n - 1) (acc * n) (* here: the function call is the last operation, so it's tail recursive *)
-
-let factorial n = factorial_tail n 1
-```
-**Explanation:**
-- *Accumulator*: `acc` is introduced to store the intermediate result of the `factorial` computation.
-- *Recursive Call*: The recursive call `factorial_tail (n - 1) (acc * n)` is the last operation in the function, making it tail-recursive.
-- *Base Case:* When `n = 0`, the function returns the accumulator acc, which contains the final result.
 
 ---
 
@@ -507,27 +489,30 @@ In OCaml, operators are essentially functions. This means you can use them in th
 
 1. **Infix Notation**: This is the typical way operators are used, where the operator is placed between the operands.
 
-    ```ml
-    1 + 5;;
-    (* : int = 6 *)
-    ```
+   ```ml
+   1 + 5;;
+   (* : int = 6 *)
+   ```
 
 2. **Prefix Notation**: By enclosing the operator in parentheses, you can use it as a function, passing the operands as arguments.
 
-    ```ml
-    ( + ) 1 5;;
-    (* : int = 6 *)
-    ```
+   ```ml
+   ( + ) 1 5;;
+   (* : int = 6 *)
+   ```
 
-**Benefits of Using Operators as Functions**  
+**Benefits of Using Operators as Functions**
+
 - **Partial Application**: You can partially apply operators to create new functions.
-    ```ml
-    let add_five = ( + ) 5;;
-    (* val add_five : int -> int = <fun> *)
 
-    add_five 3;;
-    (* : int = 8 *)
-    ```
+  ```ml
+  let add_five = ( + ) 5;;
+  (* val add_five : int -> int = <fun> *)
+
+  add_five 3;;
+  (* : int = 8 *)
+  ```
+
 - **Consistency**: Treating operators as functions maintains a consistent functional programming style, making your code more predictable and easier to reason about.
 
 ### Application Operator
@@ -605,7 +590,8 @@ A list in OCaml is defined using square brackets, with elements separated by sem
 
 ---
 
-**Note:**  
+**Note:**
+
 - The empty list is of type `'a list`, where `'a` is a **type variable**. It acts as a generic type that gets specialized based on the elements it contains. More of this in the `Parametric Polymorphism` section of this article.
 
 ### Cons Operator (`::`)
@@ -617,7 +603,8 @@ Appends an element in front of a list:
 (* : int list = [0; 1; 2; 3] *)
 ```
 
-**Note:**  
+**Note:**
+
 - `[0; 1; 2; 3]` is a new list.
 - `[0; 1; 2; 3]` is syntactic sugar for `0 :: 1 :: 2 :: 3 :: []`.
 - In the new list, `0` is called the **head**, and `[1; 2; 3]` is called the **tail**.
@@ -740,6 +727,7 @@ let y = snd point;;
 Records are a powerful way to group related data into a single unit with named fields. Unlike tuples, which use positional access, records allow you to access data by field names, making your code more readable and maintainable.
 
 **Usage:**
+
 1. Create the type definition that specifies the names and types of the fields that the record will contain.
 2. Create instances of that record by specifying values for each field.
 
@@ -767,6 +755,7 @@ OCaml automatically knows that `paolo` is a `person`. You can explicitly state i
 ### Accessing Record Elements
 
 **Direct Access**
+
 ```ml
 paolo.name;;
 (* : string = "paolo" *)
@@ -779,6 +768,7 @@ paolo.email;;
 ```
 
 **Destructuring**
+
 ```ml
 let { name; age } = paolo;;
 (*
@@ -813,28 +803,30 @@ OCaml functions can **capture bindings** from their surrounding scope, even afte
 
 ## Parametric Polymorphism
 
-Parametric polymorphism is a way to write generic, type-agnostic code. This is achieved using *Type Variables*.
+Parametric polymorphism is a way to write generic, type-agnostic code. This is achieved using _Type Variables_.
 
 ### Type Variables
 
-Type variables are placeholders for types. They allow you to define functions and data structures that can operate on any type. In OCaml, type variables are typically denoted by single letters like `'a`, `'b`, etc., often read as *alpha*, *beta*, etc.
+Type variables are placeholders for types. They allow you to define functions and data structures that can operate on any type. In OCaml, type variables are typically denoted by single letters like `'a`, `'b`, etc., often read as _alpha_, _beta_, etc.
 
 ```ml
 let identity x = x;;
 (* val identity : 'a -> 'a *)
 ```
 
-- Here, `'a` (alpha) is a *type variable* representing an unknown type in OCaml.
+- Here, `'a` (alpha) is a _type variable_ representing an unknown type in OCaml.
 
-This *type variable* allows the identity function to operate on values of any type, making it a polymorphic function.
+This _type variable_ allows the identity function to operate on values of any type, making it a polymorphic function.
 
 Maybe you remember the type definition of the empty list:
+
 ```ml
 [];;
 (* : 'a list = [] *)
 ```
 
 Here it's saying: "I'm a list that can be of any type", but it gets specialized when it receives elements:
+
 ```ml
 "hola" :: [];;
 (* : string list = ["hola"] *)
@@ -842,45 +834,63 @@ Here it's saying: "I'm a list that can be of any type", but it gets specialized 
 
 ---
 
+## Aliases
+
+Like values you can give name to types:
+
+```ml
+type point = float * float;;
+(* type point = float * float *)
+
+let p1 : point = (1., 2.);;
+(* val p1 : point = (1., 2.) *)
+```
+
+---
+
 ## Variants
 
-OCaml supports variants, also known as **algebraic data types** (ADTs). Variants are used to define types that can take on different forms, each with potentially different data. They are particularly useful for representing data that can have multiple distinct shapes or states.
+OCaml supports features called **variants** or **algebraic data types** (ADTs) that are very similar to **enums** in other languages. Variants are used to define types that can take on different forms, allowing you to create new type definitions.
 
-### Variant Constructors
+```ml
+type primary_color = Red | Green | Blue;;
+(* type primary_color = Red | Green | Blue *)
 
-They serve as **tags** that distinguish between different cases or shapes that a value of a variant type can take. Each constructor can optionally carry data, allowing you to create complex data structures.
+let r = Red;;
+(* val r : primary_color = Red *)
+let g = Green;;
+(* val g : primary_color = Green *)
+let b = Blue;;
+(* val b : primary_color = Blue *)
+```
 
-### Defining Variants
+Here we are defining a custom type `primary_color` that can be one of three options: `Red`, `Green` and `Blue`. These options are called **contructors** and serve as _custom tags_. In the first examples, we are binding one of those tags to a name and doing so the compiler interpret those bindings as types from **primary_color**.
 
-Variants are defined using the `type` keyword. Each variant can have different constructors, and each constructor can carry different types of data.
+Constructors can optionally carry data, allowing you to create more complex data structures. Let's see the next example:
 
 ```ml
 type shape =
-  | Circle of float            (* Circle with a radius *)
-  | Rectangle of float * float (* Rectangle with width and height *)
-  | Point;;                    (* A point with no additional data *)
+  | Point;;                     (* A point with no additional data *)
+  | Circle of float             (* Circle with a radius *)
+  | Rectangle of float * float;;(* Rectangle with width and height *)
 (* type shape = Circle of float | Rectangle of float * float | Point *)
+
+let p = Point;;
+(* val p : shape = Point *)
+
+let c = Circle 5.0;;
+(* val c : shape = Circle 5. *)
+
+let r = Rectangle (3.0, 4.0);;
+(* val r : shape = Rectangle (3., 4.) *)
 ```
 
-- `Circle`, `Rectangle`, and `Point` are the *variant constructors*.
-- `Circle` carries a single float value representing the radius.
-- `Rectangle` carries two float values representing the width and height.
-- `Point` carries no additional data.
+- `Circle`, `Rectangle`, and `Point` are the _variant constructors_.
+- `Point` carries no additional data (similar to the _primary_color_ example).
+- `Circle` carries a single float value representing the _radius_.
+- `Rectangle` carries two float values representing the _width_ and _height_.
 
-### Creating Values
-
-You create values of a variant type from these constructors:
-
-```ml
-Circle 5.0;;
-(* : shape = Circle 5. *)
-
-Rectangle (3.0, 4.0);;
-(* : shape = Rectangle (3., 4.) *)
-
-Point;;
-(* : shape = Point *)
-```
+Constructors as you can see allow you to create new values from a variant type, different definition from constructors in OOP (Object Oriented Programming), which also contains methods.
 
 ---
 
@@ -888,16 +898,9 @@ Point;;
 
 Pattern matching allows you to inspect the structure of data and extract values in a concise and expressive way. It's particularly useful for working with algebraic data types, such as variants and tuples. Pattern matching allows you to:
 
-- Deconstruct data structures.
-- Bind variables to parts of the data.
-- Make decisions based on the shape of the data (using variants).
-
-### More Powerful than Switch Cases
-
-- Allows you to match not just on values but also on the structure of data.
-- Can warn you if you haven't covered all possible cases.
-- Often results in shorter and more readable code.
-- Does not have fall-through behavior, where forgetting a break statement can lead to unintended execution of subsequent cases.
+- Match against values (pretty similar to switch cases)
+- Match against the shape of the data
+- Extract parts of the data
 
 ### Syntax
 
@@ -919,12 +922,14 @@ let fun_name expression = function
 
 - **expression** is the value you want to match against.
 - **pattern1**, **pattern2**, etc., describe the shape of the data.
-- **result1**, **result2**, etc., are the results returned if the corresponding pattern matches.
+- **result1**, **result2**, etc., are the returned expressions if the corresponding pattern matches.
 
 **Side Note:**
-The entire match expression must be type-consistent, meaning all branches must return values of the same type—just like OCaml’s if expressions.
+The entire match expression must be type-consistent, meaning all branches must return values of the same type, just like OCaml’s if expressions.
 
-### Matching on Integers
+### Matching on Values
+
+Pattern matching on values are very similar to switch cases but more powerful. In fact understanding switch cases is a good place to start.
 
 ```ml
 let describe_number x =
@@ -942,16 +947,30 @@ describe_number 42;;
 ```
 
 **Explanation:**
+
 - The function `describe_number` takes an integer `x`.
-- It matches `x` against several patterns: `0`, `1`, and `_` (a wildcard pattern that matches anything).
+- It matches `x` against several patterns: `0`, `1`, and `_` which is a wildcard pattern that matches anything.
+
+#### More Powerful than Switch Cases
+
+- Allows you to match not just on values but also on the structure of data.
+- Can warn you if you haven't covered all possible cases.
+- Often results in shorter and more readable code.
+- Does not have fall-through behavior, where forgetting a break statement can lead to unintended execution of subsequent cases.
 
 ### Matching on Lists
+
+Lists can only be:
+
+- nil (`[]`)
+- the cons of an elemnt onto another list (`h :: t`)
+
+So we can pattern match against those to ways:
 
 ```ml
 let first_element lst =
   match lst with
   | [] -> "empty"
-  | [x] -> x
   | h :: t -> h;;
 (* val first_element : string list -> string = <fun> *)
 
@@ -963,11 +982,28 @@ first_element ["sapori"; "colori"];;
 ```
 
 **Explanation:**
+
 - The function `get_first_element` takes a list `lst`.
 - It matches the list against several patterns:
   - `[]` (empty list) → returns "empty".
   - `[x]` (single-element list) → returns `x`.
   - `h :: _` (non-empty list) → returns the first element `h`.
+
+**Side Note:**  
+In fact, pattern matching is type exaustive, preventing to write runtime error prone code:
+
+```ml
+let first_element lst =
+  match lst with
+  | [] -> "empty";;
+(*
+  [partial-match]: this pattern-matching is not exhaustive.
+  Here is an example of a case that is not matched:
+  _::_
+
+  val first_element : 'a list -> string = <fun>
+ *)
+```
 
 ### Matching on Tuples
 
@@ -988,6 +1024,7 @@ has_zero (0, 1);;
 ```
 
 **Explanation:**
+
 - The function `has_zero` takes a tuple `(x, y)` and matches it against specific patterns to determine whether any of the values are zero.
 
 ### Example: Matching on Records
@@ -1039,10 +1076,59 @@ area @@ Rectangle (2.0, 4.0);;
 ```
 
 **Explanation:**
+
 - The `shape` type has two variants: `Circle` and `Rectangle`.
 - The function `area` matches on the shape and extracts the relevant data:
-  - `Circle radius` → computes the area as π * radius².
-  - `Rectangle (width, height)` → computes the area as width * height.
+  - `Circle radius` → computes the area as π \* radius².
+  - `Rectangle (width, height)` → computes the area as width \* height.
+
+### Example: Nested Patterns
+
+Let's calculate the area of shapes when we have its cartesian points:
+
+```ml
+type point = float * float
+
+type shape =
+  | Circle of { center: point; radius: float }
+  | Rectangle of { lower_left: point; upper_right: point }
+
+let area shape =
+  match shape with
+  | Circle { center; radius } -> Float.pi *. radius ** 2.
+  | Rectangle { lower_left; upper_right } ->
+      let (x_lf, y_lf) = lower_left in
+      let (x_ur, y_ur) = upper_right in
+      (x_ur -. x_lf) *. (y_ur -. y_lf);;
+(*
+   type point = float * float
+   type shape =
+     Circle of { center : point; radius : float; }
+   | Rectangle of { lower_left : point; upper_right : point; }
+   val area : shape -> float = <fun>
+ *)
+
+area @@ Circle { center = (0. , 0.); radius = 1. };;
+(* : float = 3.14159265358979312 *)
+```
+
+In this case we are extracting data from the record of a variant constructor but we can pattern match even more :
+
+```ml
+type point = float * float
+
+type shape =
+  | Circle of { center: point; radius: float }
+  | Rectangle of { lower_left: point; upper_right: point }
+
+let area shape =
+  match shape with
+  | Circle { center; radius } -> Float.pi *. radius ** 2.
+  | Rectangle {
+      lower_left = (x_lf, y_lf);
+      upper_right = (x_ur, y_ur)
+    } -> (x_ur -. x_lf) *. (y_ur -. y_lf);;
+```
 
 ## Function Keyword
 
@@ -1051,6 +1137,7 @@ You can simplify the syntax of functions that use pattern matching by leveraging
 ### Simplifying with `function`
 
 Consider the following function definition:
+
 ```ml
 let f x y z =
   match z with
@@ -1058,6 +1145,7 @@ let f x y z =
 ```
 
 You can rewrite it using the `function` keyword to streamline the pattern matching:
+
 ```ml
 let f x y = function
   | ...
@@ -1080,6 +1168,7 @@ let area = function    (* see the change here *)
 ```
 
 **Explanation:**
+
 - **Type Definition**: The `shape` type is a variant that can represent either a `Circle` with a radius or a `Rectangle` with width and height.
 - **Function Definition**: The `area` function uses the `function` keyword to directly pattern match on the `shape` type. This eliminates the need for an explicit match expression.
 - **Usage**:
@@ -1094,6 +1183,7 @@ area @@ Rectangle (2.0, 4.0);;
 **Example: Summing a List**
 
 Here's another example that demonstrates the use of the `function` keyword with a recursive function to sum the elements of a list:
+
 ```ml
 let rec sum = function
  | [] -> 0
@@ -1101,8 +1191,10 @@ let rec sum = function
 ```
 
 **Explanation:**
+
 - **Function Definition**: The `sum` function uses the `function` keyword to pattern match on the list. If the list is empty (`[]`), it returns `0`. Otherwise, it adds the head (`h`) to the sum of the tail (`t`).
 - **Usage**:
+
 ```ml
 sum [1; 2; 3; 4];;
 (* : int = 10 *)
