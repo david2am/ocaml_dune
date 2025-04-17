@@ -1,8 +1,8 @@
-open Lib
+open Math
 
 let () =
-  let result = Math.add 2 3 in
+  let result = Calc.add 2 3 in
   print_endline (Int.to_string result);
   
-  let result = Math.sub 3 1 in
+  let result = Calc.sub 3 1 in
   print_endline (Int.to_string result)
