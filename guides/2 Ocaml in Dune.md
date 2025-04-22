@@ -9,45 +9,63 @@ This tutorial is based on the official OCaml documentation and the video [Gettin
 
 _Note:_ This article also includes notes for OCaml maintainers. The OCaml community is welcoming, and I trust that my feedback will be well-received.
 
-Happy coding! 🚀
-
 ---
 
 # OCaml Global Setup
 
 ## Install OCaml
 
-As usual install the basics, in this case it's `Opam`, the OCaml's package manager (similar to **npm** in JS) that manages packages and compiler versions.
+Start by installing **Opam**, the OCaml package manager, which is similar to **npm** in JavaScript. It manages packages and compiler versions.
+
+### For macOS
 
 ```sh
 brew install opam
 ```
 
+### For Linux
+
+```sh
+sudo apt-get install opam
+```
+
+### For Windows
+
+```sh
+winget install Git.Git OCaml.opam
+```
+
 ## Setup OCaml Globally
 
-The next step is to set OCaml's global configuration with Opam:
+Initialize OCaml's global configuration with Opam:
 
 ```sh
 opam init -y
 ```
 
-And activate the **Opam** global configuration activating its env variables by running:
+Activate the **Opam** global configuration by running:
 
 ```sh
 eval $(opam env)
 ```
 
-_Note:_ every time you open a new terminal you need to run `eval $(opam env)` to activate the **Opam** global config, my recommendation is add this command to your `.bashrc` or `.zshrc` file, so everytime you open a new terminal you activate it.
+_Note:_ You need to run `eval $(opam env)` every time you open a new terminal to activate the **Opam** global configuration. Consider adding this command to your `.bashrc` or `.zshrc` file to automate this process.
 
 ## Install Platform Tools
 
-Platform tools assist your code editor with the **OCaml LSP server** and help you to create and manage OCaml projects with **Dune**.
+Install essential tools to assist your code editor with the **OCaml LSP server** and help you create and manage OCaml projects with **Dune**:
 
 ```sh
 opam install ocaml-lsp-server odoc ocamlformat utop
 ```
 
----
+These tools provide:
+
+- `ocaml-lsp-server`: Language server for editor integration (code completion, etc.)
+- `odoc`: Documentation generator
+- `ocamlformat`: Code formatter
+- `utop`: Enhanced REPL (interactive console)
+- `dune`: Build system and project manager
 
 ---
 
@@ -55,43 +73,45 @@ opam install ocaml-lsp-server odoc ocamlformat utop
 
 ## Create a Project
 
-**Dune** is the default OCaml's build system to automatize: compilations, tests, and document generation, with it you can also create and manage your projects, if you run the last commands you installed it, so you can freely create a new project by running:
+**Dune** is OCaml's default build system, automating compilations, tests, and documentation generation. It also helps create and manage projects. If you've run the previous commands, Dune is already installed. Create a new project by running:
 
 ```sh
-dune init proj [project_name]
-cd [project_name]
+dune init proj my_project
+cd my_project
 ```
-
----
 
 ## Project Structure
 
-Most of the work would happen in the `lib/` folder, and the `main.ml` file that is the application entry point. Files in Dune are composed mainly by two types of files: `.ml` files, that correspond to modules where the OCaml code resides, and `dune` files that contains metadata from those modules in **s-exrpression** format.
+Most of your work will happen in the `lib/` folder and the `main.ml` file, which is the application's entry point. Dune projects primarily consist of:
 
-- `lib/` - Contains your modules, alias your `.ml` files.
-- `bin/` - Contains executable/compiled programs.
-- `_opam/` — Stores project dependencies.
-- `_build/` — Contains build artifacts.
-- `dune-project` — Equivalent to package.json in JavaScript or requirements.txt in Python.
-- `bin/main.ml` — The application’s entry point.
-
----
+- `lib/`: Contains your modules (`.ml` files).
+- `bin/`: Contains executable/compiled programs.
+- `_opam/`: Stores project dependencies.
+- `_build/`: Contains build artifacts.
+- `dune-project`: Equivalent to `package.json` in JavaScript or `requirements.txt` in Python.
+- `bin/main.ml`: The application’s entry point.
 
 ## Create a Switch for Your Project
 
-Switches in OCaml are similar to Python's virtual environments. They keep compilers and package versions isolated per project, helping you avoid conflicts between them.
+Switches in OCaml are similar to Python's virtual environments. They isolate compilers and package versions per project, preventing conflicts.
+
+List available compiler versions:
 
 ```sh
-opam switch create . [compiler_version] --deps-only
+opam switch list-available
 ```
 
-As a result **Opam** create and store Switch artifacts in the `_opam/` folder.
+Create a switch with your selected version:
 
-- The `--deps-only` flag ensures that only dependencies are installed, and not the current project as another dependency (which is common practice in systems programming).
+```sh
+opam switch create . 5.3.0 --deps-only
+```
 
-### Help **Opam** to Automatically Detect If You Are in the Right Switch
+This command creates and stores switch artifacts in the `_opam/` folder. The `--deps-only` flag ensures that only dependencies are installed, not the current project.
 
-Run this command once:
+### Enable Automatic Switch Detection
+
+Run this command once to help **Opam** automatically detect if you are in the right switch:
 
 ```sh
 opam init --enable-shell-hook
@@ -99,40 +119,40 @@ opam init --enable-shell-hook
 
 ### Activate the Switch
 
-Every time you get into a project don't forget to activate the Switch by running:
+Activate the switch every time you enter the project:
 
-```ml
+```sh
 eval $(opam env)
 ```
 
 ## Install Dev Tools for the New Switch
 
-This step is necessary, especially if you are using a modal code editor like **Vim**.
+This step is necessary, especially if you use a modal code editor like **Vim**:
 
 ```sh
-opam install ocaml-lsp-server odoc ocamlformat utop
+opam install ocaml-lsp-server odoc ocamlformat
 ```
 
 ## Run the Project
 
-As a compiled language OCaml needs to be compiled first and then execute the compiled artifacts:
+Compile and execute your project:
 
 ```sh
 dune build
-dune exec [project_name]
+dune exec my_project
 ```
 
-But you can accomplish both by using a single command with watch mode:
+Alternatively, use watch mode to accomplish both tasks with a single command:
 
 ```sh
-dune exec -w [project_name]
+dune exec -w my_project
 ```
 
-As a result, **Dune** creates the `_build` folder containing OCaml's compiled artifacts.
+This creates the `_build/` folder containing OCaml's compiled artifacts.
 
 ## Create the `.gitignore` File
 
-Until now a **Dune** project doesn't include a `.gitignore` file by defaul so le't create it manually:
+Dune projects do not include a `.gitignore` file by default. Create it manually:
 
 ```sh
 # .gitignore
@@ -146,17 +166,17 @@ _build/
 git init
 ```
 
-Congratulations! now you have a new project created, next, we will create a simple program and use OCaml and Dune features to build it:
+Congratulations! You have created a new project. Next, we will create a simple program using OCaml and Dune features.
 
 ---
 
 # Create Your First Module
 
-Let's create the typical calculator with just 2 functions: **add** and **sub** to learn about **Dune**.
+Let's create a simple calculator with `add` and `sub` functions to learn about **Dune**.
 
-## Create The Module:
+## Create the Module
 
-In OCaml every a new `.ml` file inside the `lib/` folder is a considered a module, let's create our own as `calc.ml` and add the previous mentioned functions:
+In OCaml, each `.ml` file in the `lib/` folder is considered a module. Create `calc.ml` and add the following functions:
 
 ```ml
 (* lib/calc.ml *)
@@ -167,33 +187,31 @@ let sub x y = x - y
 
 ## Define a Library
 
-For simplicity let's define everything inside the `lib/` folder as a library and every module inside of it as part of that library by creating a `dune` file in `lib/` and give it a the name of `math`:
+Define everything inside the `lib/` folder as a library named `math` by creating a `dune` file in `lib/`:
 
-```ml
-(* lib/dune *)
+```scheme
+; lib/dune
 (library
  (name math))
 ```
 
-- Libraries in OCaml are similar to index files in JS, are the OCaml way to expose modules
+Libraries in OCaml are similar to index files in JavaScript; they expose modules.
 
 ## Register the Library in `bin/dune`
 
-To make it possible to access your library from the `main.ml` file open the contiguous `dune` file in the `bin/` folder and register the name of your library:
+To access your library from `main.ml`, open the `dune` file in the `bin/` folder and register the library name:
 
-```ml
-(* bin/dune *)
+```scheme
+; bin/dune
 (executable
  (public_name ocaml_dune)
  (name main)
- (libraries math)) (* Include your module *)
+ (libraries math)) ; Include your module here
 ```
 
 ## Use the Module in `main.ml`
 
-You can access a module by writing the library name followed by the module name like `Library.Module`, but usually you will prefer to use **open** to access the module in your `main.ml` as follows:
-
-In the `bin/` folder, open the `main.ml` file, access the library with the `open` keyword followed by the library name, and call your module definitions by writing the module name followed by its definition like `Module.definition`:
+Access the library in `main.ml` using the `open` keyword, and call your module definitions:
 
 ```ml
 (* bin/main.ml *)
@@ -207,31 +225,31 @@ let () =
   print_endline (Int.to_string result) (* Output: 2 *)
 ```
 
-- Notice that we are also using a definition from the `Int` module from the standard library to convert a number to a string.
+Notice that we also use the `Int` module from the standard library to convert a number to a string.
 
 ## Run the Project
 
-Compile and execute your project in watch mode by using this command:
+Compile and execute your project in watch mode:
 
 ```sh
-dune exec -w [project_name]
+dune exec -w my_project
 ```
 
 ---
 
 # Interface Files (`.mli`)
 
-`.mli` files are OCaml interface files, they serves as:
+`.mli` files are OCaml interface files. They serve as:
 
-- _Module interface definition_: define the public interface of a module.
-- _Encapsulation_: prevents accidental exposure of internal details of a module.
-- _Documentation_: can include comment specifications that gives more clarity to other developers.
-- _Separation of interface and implementation_: you can change the internals of a module without affecting other parts of the program, as long as the public interface remains the same.
-- _Improve compilation time_: the compiler relies on them to speed up.
+- _Module interface definition_: Define the public interface of a module.
+- _Encapsulation_: Prevent accidental exposure of internal module details.
+- _Documentation_: Include comments for clarity.
+- _Separation of interface and implementation_: Change module internals without affecting other program parts.
+- _Improve compilation time_: The compiler relies on them to speed up.
 
-## Define the module’s public API
+## Define the Module’s Public API
 
-It's enough to create an `.mli` file with with the same name of its correspondin molude, in this case create `calc.mli` at one side of `calc.ml` in the `lib/` folder:
+Create an `.mli` file with the same name as its corresponding module. For `calc.ml`, create `calc.mli` in the `lib/` folder:
 
 ```ml
 (* lib/calc.mli *)
@@ -239,7 +257,7 @@ val add : int -> int -> int
 (** [add x y] returns the sum of x and y. *)
 ```
 
-If you verify your running program in the terminal, attempting to use `sub` will now result in an error, to fix it expose it also in `calc.mli`:
+If you attempt to use `sub` in your running program, it will result in an error. Expose `sub` in `calc.mli` to fix this:
 
 ```ml
 (* lib/calc.mli *)
@@ -252,15 +270,82 @@ val sub : int -> int -> int
 
 ---
 
+# Add a Dependency
+
+Let's add **ANSITerminal**, a lightweight package for colored terminal output.
+
+## Subscribe the Module in `dune-project`
+
+Edit your `dune-project` file and add the dependency name in the `depends` node:
+
+```scheme
+...
+(package
+ (name my_project)
+ (depends
+  ocaml
+  (ANSITerminal (>= 0.8.5))) ; add package here
+```
+
+## Install the Module
+
+Run `dune build` to automatically install the dependency:
+
+```sh
+dune build
+```
+
+Alternatively, you can run:
+
+```sh
+opam install ANSITerminal
+```
+
+However, `dune build` is recommended because it creates the `ocaml_dune.opam` file, similar to `package.lock.json` in JavaScript, maintaining a register of the exact package versions.
+
+## Import the Module
+
+Update the `dune` file in the `bin/` folder to include the new dependency:
+
+```scheme
+(executable
+ (public_name ocaml_dune)
+ (name main)
+ (libraries math ANSITerminal)) ; add package here
+```
+
+## Update `main.ml`
+
+```ml
+(* Import the module *)
+open ANSITerminal
+
+(* Print nicely formatted text in the terminal *)
+let () =
+  print_string [Bold; green] "\n\nHello in bold green!\n";
+  print_string [red] "This is in red.\n"
+```
+
+---
+
+# Next Steps
+
+- Explore the standard library in the [OCaml Manual](https://ocaml.org/manual)
+- Try [Real World OCaml](https://dev.realworldocaml.org/)
+- Browse packages on [OCaml Packages](https://ocaml.org/packages)
+
+---
+
+Happy coding with OCaml! 🚀
+
+---
+
 # Feedback for OCaml Maintainers
 
-- A direct link to available compiler versions in the switch documentation would be helpful to find more available versions.
-- `--deps-only`
-  - Installing packeges without considering the current project could be the default behavior to simplify the setup.
-- `eval $(opam env)`
-  - Automate this every time a switch is activated would improve the developer experience.
-- `dune exec -w [project_name]`
-  - Avoid writing the project name to run the project simplifies the setup.
-  - It would be nice if it automatically creates a `.gitignore file` so we don't have to do it manually.
-
-<!-- - It would be great if we don't have to define a `dune` file for each module, and instead this would be the default behavior -->
+- A direct link to available compiler versions in the switch documentation would be helpful.
+- `--deps-only`: Installing packages without considering the current project could be the default behavior to simplify the setup.
+- `eval $(opam env)`: Automating this command every time a switch is activated would improve the developer experience.
+- `dune exec -w my_project`: Avoid writing the project name to run the project, simplifying the setup.
+- Automatically create a `.gitignore` file to avoid manual setup.
+- We should include a `dune` CLI command to install a package, register the library name in the `dune-project` and update the `ocaml_dune.opam` file.
+- It would be great if we didn't have to define a `dune` file for each module, and instead, this would be the default behavior

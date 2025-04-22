@@ -4,7 +4,7 @@ synopsis: "Learn Ocaml in Dune from the ground up"
 description: "This is an begginer's Ocaml tutorial"
 maintainer: ["Maintainer Name <maintainer@example.com>"]
 authors: ["David @ dvccueter@gmail.com"]
-license: "LICENSE"
+license: "MIT"
 tags: ["ocaml" "dune" "begginer" "tutorial"]
 homepage: "https://github.com/david2am/reponame"
 doc: "https://url/to/documentation"
@@ -12,6 +12,7 @@ bug-reports: "https://github.com/david2am/reponame/issues"
 depends: [
   "dune" {>= "3.17"}
   "ocaml"
+  "ANSITerminal" {>= "0.8.5"}
   "odoc" {with-doc}
 ]
 build: [

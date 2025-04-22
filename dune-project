@@ -11,7 +11,7 @@
 
 (maintainers "Maintainer Name <maintainer@example.com>")
 
-(license LICENSE)
+(license MIT)
 
 (documentation https://url/to/documentation)
 
@@ -19,7 +19,9 @@
  (name ocaml_dune)
  (synopsis "Learn Ocaml in Dune from the ground up")
  (description "This is an begginer's Ocaml tutorial")
- (depends ocaml)
+ (depends
+  ocaml
+  (ANSITerminal (>= 0.8.5)))
  (tags
   ("ocaml" "dune" "begginer" "tutorial")))
 
