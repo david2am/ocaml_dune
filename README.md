@@ -4,7 +4,7 @@ This tutorial draws from OCaml's official documentation and contributions from e
 
 This tutorial is my contribution to the community. 🫰
 
-*Note:*
+_Note:_
 This article also includes notes for OCaml maintainers. The OCaml community is welcoming, and I trust that my feedback will be well-received.
 
 Happy coding/reading! 🚀
@@ -13,9 +13,11 @@ Happy coding/reading! 🚀
 
 ## Index
 
-0. **FP and Why OCaml**
+0. **FP and Why OCaml**  
    Discover why Functional Programming will change the way you think about programming, and why OCaml is a great starting point.
-1. **Basic Ocaml**
+1. **Basic Ocaml**  
    Learn OCaml syntax and the fundamentals of Functional Programming.
-2. **OCaml in Dune**
+2. **OCaml in Dune**  
    Build your first **Dune** project and run OCaml locally without REPLs.
+3. **Practical OCaml**  
+   Use practical OCaml and FP strategies
