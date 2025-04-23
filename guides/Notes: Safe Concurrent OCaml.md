@@ -1,3 +1,5 @@
+Be in mind that **it's not an article**, just scattered notes about this interesting topic, maybe for a future article
+
 # Modes
 
 A mode is attached to a variable upon declaration, either in a let binding or in a function parameter. It's also ortogonal to types, types describe data structures, modes can be used to enforce certain constraints, optimize performance, or ensure safety in programming languages. The mode of `l ` is separated from the type of `x`.
