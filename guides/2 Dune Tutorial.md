@@ -51,7 +51,7 @@ eval $(opam env)
 
 _Note:_ You need to run `eval $(opam env)` every time you open a new terminal to activate the **Opam** global configuration. Consider adding this command to your `.bashrc` or `.zshrc` file to automate this process.
 
-## Install Platform Tools
+### Install Platform Tools
 
 Install essential tools to assist your code editor with the **OCaml LSP server** and help you create and manage OCaml projects with **Dune**:
 
