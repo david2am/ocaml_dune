@@ -21,7 +21,8 @@
  (description "This is an begginer's Ocaml tutorial")
  (depends
   ocaml
-  (ANSITerminal (>= 0.8.5)))
+  (ANSITerminal (>= 0.8.5))
+  (alcotest :with-test))
  (tags
   ("ocaml" "dune" "begginer" "tutorial")))
 

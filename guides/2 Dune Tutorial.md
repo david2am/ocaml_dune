@@ -328,6 +328,80 @@ let () =
 
 ---
 
+# Testing
+
+Alcotest is a simple and efficient testing framework for OCaml. It provides a straightforward way to write and run tests, making it easier to ensure the reliability and correctness of your code. This is the tool we are going to use.
+
+## Add Alcotest to `dune-project` Dependencies
+
+To integrate Alcotest into your project, you need to add it as a dependency in your `dune-project` file. This ensures that Alcotest is available for your test suite.
+
+```scheme
+(package
+ (name my_project)
+ (depends
+  ocaml
+  (ANSITerminal (>= 0.8.5))
+  (alcotest :with-test))) ; Add Alcotest as a test-only dependency
+```
+
+The `:with-test` constraint specifies that **Alcotest** is a test-only dependency, meaning it will only be used during testing and not included in the final build.
+
+## Install the Dependency
+
+After updating the `dune-project` file, install the dependency by running:
+
+```sh
+opam install alcotest
+```
+
+And then:
+
+```sh
+dune build
+```
+
+This registers the dependency in the `ocaml_dune.opam` file, which serves a similar purpose to `package.lock.json` in other ecosystems.
+
+## Register Alcotest in the Test `dune` File
+
+Next, you need to register Alcotest and your libraries for your tests. This is done in the `test/dune` file:
+
+```scheme
+(test
+ (name test_my_project)
+ (libraries alcotest math)) ; Include Alcotest and your math library
+```
+
+By doing this, any `.ml` files in the `test/` folder will have access to both Alcotest and your library's modules.
+
+## Create Your First Dummy Test
+
+Now, create a simple test to ensure everything is set up correctly. Add the following code to the `test/test_my_project.ml` file:
+
+```ocaml
+(* test/test_my_project.ml *)
+let test_hello () =
+  Alcotest.(check string) "same string" "hello" "hello"
+
+let () =
+  Alcotest.run "My Project" [
+    "hello", [
+      Alcotest.test_case "Hello test" `Quick test_hello;
+    ];
+  ]
+```
+
+This dummy test checks if the string "hello" is equal to "hello", which should always pass. It's a good starting point to verify that your testing setup is functional.
+
+## Run the Test
+
+```sh
+dune test
+```
+
+---
+
 # Next Steps
 
 - Explore the standard library in the [OCaml Manual](https://ocaml.org/manual)
