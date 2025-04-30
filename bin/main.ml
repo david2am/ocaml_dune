@@ -5,7 +5,11 @@ let () =
   print_endline (Int.to_string result);
   
   let result = Calc.sub 3 1 in
-  print_endline (Int.to_string result)
+  print_endline (Int.to_string result);
+
+  let result = Calc.safe_div 300. 0. in (* Implementation details on Practical OCaml.md*)
+  let value = Result.value result ~default:0. in
+  print_endline (Float.to_string @@ value)
 
 
 (* open ANSITerminal
