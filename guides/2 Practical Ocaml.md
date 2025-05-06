@@ -39,6 +39,7 @@ Happy reading! 🚀
   - [Sequence Operator (`;`)](#sequence-operator-)
   - [Mutable Record Fields](#mutable-record-fields)
 - [Arrays](#arrays)
+- [Closures](#closures)
 
 ---
 
@@ -530,7 +531,6 @@ let next () =
 ```ml
 next();;
 (* : int = 1 *)
-
 next();;
 (* : int = 2 *)
 ```
@@ -660,4 +660,40 @@ Usage: `Array.fold_left func acc array`
 ```ml
 Array.fold_left (fun acc x -> acc + x) 0 [|1; 2; 3; 4|];;
 (* : int = 10 *)
+```
+
+# Closures
+
+or a more robust version:
+
+```ml
+let next start =
+  let counter = ref start in
+  fun () ->
+    incr counter;
+    !counter
+;;
+
+let count = next 0.;;
+
+count ();;
+count ();;
+```
+
+```ml
+let counter_builder start =
+  let counter = ref start in
+  fun num ->
+    counter := !counter + num;
+    !counter
+;;
+(* val counter_builder : int -> int -> unit = <fun> *)
+
+let count = counter_builder 0;;
+(* val count : int -> unit = <fun> *)
+
+count 8;;
+(* 8 *)
+count 10;;
+(* 18 *)
 ```
