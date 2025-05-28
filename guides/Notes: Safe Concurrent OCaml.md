@@ -6,7 +6,7 @@ A mode is attached to a variable upon declaration, either in a let binding or in
 
 - Modes are deep, local contains locals and globals contain globals
 
-```ml
+```ocaml
 let local x = 0
 (* val x : int @ local *)
 ```
@@ -18,13 +18,13 @@ let local x = 0
 
 If a function argument is **local** it can't scape the scope of the function, which means that its lifetime is restricted to the body of the function so the function can't return it or save it in a global reference.
 
-```ml
+```ocaml
 let sm @ global : t ref = ref (...)
 let f : t @ local -> unit = fun x -> sm := x
            Error: value escapes its region ^
 ```
 
-```ml
+```ocaml
 let bar () =
     let list = local_list () in
     list
@@ -34,7 +34,7 @@ let bar () =
 
 In the previous example, we are trying to save a **local** binding as a **global** reference and throws an Error.
 
-```ml
+```ocaml
 let sm @ global : (unit -> t) ref = ref ...
 let f : t @ local -> unit = fun x -> sm := (fun () -> x)
            Error: value escapes its region ^
@@ -46,7 +46,7 @@ This time we are trying to save a closure that contains a **local** bindig as a 
 
 **global** is a submode of **local** because... // TODO: finish // and because of that allow global values to be used at the **local** mode.
 
-```ml
+```ocaml
 let global y = 1
 let some_fun (local x) =
     ...
@@ -60,12 +60,12 @@ some_fun y
 - **unique:** has never been copied, a value is unique if exist exactly one reference to it, ensuring that the value is not shared with any other part of the program.
 - **aliased:** copies may exist, a value has more than one reference to it.
 
-```ml
+```ocaml
 let x @ unique : key = ... in delete x; delete x
           Error: x cannot be treated as unique ^
 ```
 
-```ml
+```ocaml
 let foo (unique x) =
     consume x;
     x
@@ -86,7 +86,7 @@ The concept of **in-place updates** avoid the overhead of allocating new memory 
 
 A unique value can be used as an aliased value, so unique is a sub-mode of aliased.
 
-```ml
+```ocaml
 let bar (unique x) =
     x, x
 (* val bar : 'a @ unique -> 'a * 'a *)
@@ -104,7 +104,7 @@ It's the dual of uniqueness
 - **many:** can be used (copied) multiple times
 - **once:** carries the restriction of been used at most once, it cannot be copied, ensures unique ownership of resources
 
-```ml
+```ocaml
 let x @ once : 1 in x + x
     Error: x cannot be copied
 ```
@@ -116,7 +116,7 @@ uniqueness and affinity are the two faces of a linear system
 - closures that capture **unique** values are **once**, in other words, can't be applied more than once
 - **many** closures can only capture values as **aliased**
 
-```ml
+```ocaml
 (* Suppose delete : key @ unique -> unit *)
 let x @ unique : key = ... in
 let f = (fun () -> delete x) in List.iter f l
@@ -132,7 +132,7 @@ many is a sub-mode of once
 - A once parameter means the callee promises not tu use the value more than once.
 - A many parametr encodes no premise; the callee may use the value any number of times.
 
-```ml
+```ocaml
 let baz (once x) =
     x, x
        ^ Error: fond a once value where a many walue was expected.
@@ -146,7 +146,7 @@ let baz (once x) =
 
 A llow the compiler to know if some value is allowed to modify the content of a reference.
 
-```ml
+```ocaml
 let f : int ref @ contended -> unit = fun x -> x := 42
                     Error: potential data race ^
 ```
@@ -158,7 +158,7 @@ It's the dual of contention, it allow or disallow to share values accross thread
 - **portable:** can be transmitted to other threads
 - **nonportable:** cannot
 
-```ml
+```ocaml
 let f @ nonportable = ... in
 Thread.create f ()
               ^ Error: cannot cross threads
@@ -171,7 +171,7 @@ Together, contention and portability, avoid mutations from other threads in the 
 - closures that capture **uncontended** or **shared** binding should be **nonportable**
 - **portable** closures can only capture **contended** bindings,
 
-```ml
+```ocaml
 let x @ uncontended : int ref = ref 42 in
 let f @ nonportable : unit -> int = fun _ -> !x in
 Thread.create f ()
@@ -205,7 +205,7 @@ Capsule ensures that only a thread at a time can access to the content with **Wr
   - **unique** key -> R/W access
   - **aliased** key -> read only access
 
-```ml
+```ocaml
 module Key : sig
     type 'k t default portable contended
     type packed = Key : 'k t -> packed
@@ -215,7 +215,7 @@ end
 
 Encapsulating Data
 
-```ml
+```ocaml
 module Data : sig
     type ('a, 'k) t default portable contended
     val create :

@@ -76,7 +76,7 @@ A value is an expression that doesn't need further evaluation. Let's explore som
 
 ### Integers
 
-```ml
+```ocaml
 1;;
 (* : int = 1 *)
 
@@ -92,7 +92,7 @@ Int.max 3 7;;
 
 ### Booleans
 
-```ml
+```ocaml
 false;;
 (* : bool = false *)
 
@@ -105,14 +105,14 @@ Bool.to_string true;;
 
 ### Chars
 
-```ml
+```ocaml
 'd';;
 (* : char = 'd' *)
 ```
 
 ### Strings
 
-```ml
+```ocaml
 "hola!";;
 (* : string = "hola" *)
 
@@ -131,7 +131,7 @@ String.uppercase_ascii "hola mundo!";;
 
 ### Floats
 
-```ml
+```ocaml
 1.0;;
 (* : float = 1.0 *)
 
@@ -161,7 +161,7 @@ OCaml includes built-in modules for common operations, such as `Float.round` and
 
 **If expressions** conditionally evaluate one branch over another. In OCaml, **if expressions** always return a value because their branches are expressions, and the **else clause** is mandatory.
 
-```ml
+```ocaml
 if condition then ifBranch else elseBranch;;
 (* if condition is true then returns ifBranch *)
 (* if condition is false then returns elseBranch *)
@@ -176,7 +176,7 @@ if "pineapple pizza" > "pizza margherita" then "Non sei italiano" else "Tu sei u
 - Both branch expressions should have the same type.
 - **else branch** is required.
 
-```ml
+```ocaml
 if 0 then "Non sei italiano" else "Tu sei un vero italiano";;
 (* Error: value 0 is not a boolean expression *)
 
@@ -193,7 +193,7 @@ if true then "Non sei italiano";;
 
 The `unit` type is equivalent to `void` in other programming languages but is a valid type in OCaml. It has only one possible value, denoted by `()`.
 
-```ml
+```ocaml
 print_endline "Hello, world!";;
 (* Hello, world! *)
 (* : unit = () *)
@@ -205,7 +205,7 @@ print_endline "Hello, world!";;
 
 `let` definitions are bindings that are always immutable.
 
-```ml
+```ocaml
 let greet = "Ciao!";;
 (* val greet : string = "Ciao!" *)
 ```
@@ -215,7 +215,7 @@ The `utop` response indicates that `"Ciao!"` is a `string` bound to a **value de
 
 ### `let` Definitions Are Immutable
 
-```ml
+```ocaml
 let pi = 3.1;;
 (* val pi : float = 3.1 *)
 
@@ -239,7 +239,7 @@ Let expressions allow you to bind subexpressions within a larger expression usin
 
 This concept is similar to mathematical substitution, where you replace variables with their values:
 
-```ml
+```ocaml
 let x = 7 in 3 + x;;
 (* : int = 10 *)
 
@@ -256,7 +256,7 @@ let x = 7 in 3 + x;;
 
 Let expressions can be used with any type of value, not just integers. For example:
 
-```ml
+```ocaml
 let greet = "salve" in greet ^ " mondo!";;
 (* val greet : string = "salve mondo!" *)
 ```
@@ -267,7 +267,7 @@ Scope refers to the region of a program where a binding is meaningful and can be
 
 Let's revisit an example with a fresh perspective:
 
-```ml
+```ocaml
 let x = 7 in let y = 3 in x + y;;
                          <- A ->
              <------- B ------->
@@ -282,7 +282,7 @@ In this example:
 
 As OCaml follows **lexical scoping** rules, the most recent definition of a binding takes precedence:
 
-```ml
+```ocaml
 let x = 10 in let x = 5 in x ;;
 (* : int = 5 *)
 ```
@@ -298,7 +298,7 @@ More into scoping is the `Lexical Scope` section of this article.
 
 Anonymous functions, also known as **lambda functions**, are expressions that contain behavior. They are particularly useful for creating short, one-off functions that are often passed as arguments to higher-order functions. In OCaml, anonymous functions are defined using the `fun` keyword:
 
-```ml
+```ocaml
 fun x -> x + 10;;
 (* : int -> int = <fun> *)
 ```
@@ -308,7 +308,7 @@ fun x -> x + 10;;
 
 Now let's pass an argument to the function:
 
-```ml
+```ocaml
 (fun x -> x + 10) 35;;
 (* : int = 45 *)
 ```
@@ -318,7 +318,7 @@ Now let's pass an argument to the function:
 
 Additionally, `let` expressions can be seen as syntactic sugar for function applications:
 
-```ml
+```ocaml
 (* Both expressions are equivalent: *)
 let x = 35 in x + 10;;
 (fun x -> x + 10) 35;;
@@ -333,14 +333,14 @@ let x = 35 in x + 10;;
 
 In OCaml, anonymous functions are values, and using the `let` keyword, you can create a binding:
 
-```ml
+```ocaml
 let sum_10 = fun x -> x + 10
 (* val sum_10 : int -> int = <fun>  *)
 ```
 
 Alternatively, you can use a more concise syntax by placing the arguments on the left side of the equal sign and omitting the `fun` and `->` keywords:
 
-```ml
+```ocaml
 let sum_10 x = x + 10
 (* val sum_10 : int -> int = <fun>  *)
 ```
@@ -355,7 +355,7 @@ High-order functions are functions that take other functions as arguments or ret
 
 The List.map function is a classic example of a high-order function. It applies a given function to each element of a list and returns a new list with the results.
 
-```ml
+```ocaml
 let increment x = x + 1;;
 
 List.map increment [1; 2; 3; 4];;
@@ -375,7 +375,7 @@ Closures refer to the ability of a function to capture and "remember" the enviro
 
 **Example: Multiplier Function**
 
-```ml
+```ocaml
 let make_multiplier factor =
   fun x -> x * factor
 
@@ -403,7 +403,7 @@ triple 5;;
 
 In OCaml, functions that take multiple arguments do not use commas to separate the arguments. Instead, arguments are separated by spaces, and functions that seem to take multiple arguments are actually several nested functions that take one argument at a time. This is called "currying."
 
-```ml
+```ocaml
 fun x y -> x + y;;
 (* : int -> int -> int = <fun> *)
 
@@ -417,7 +417,7 @@ This is evident in their type definition: `: int -> int -> int`, which is essent
 **Creating Specialized Functions**  
 You can use partial application to create specialized functions. For example, you can create a function `add_4` that always adds 4 to any number:
 
-```ml
+```ocaml
 let add x y = x + y;;
 (* val add : int -> int -> int = <fun> *)
 
@@ -443,7 +443,7 @@ Imagine climbing a staircase from the ground floor to the first floor. You take 
 
 (Example inspired by [Byjus](https://byjus.com/maths/recursive-function)).
 
-```ml
+```ocaml
                        o
                       /|\
                 ___ 4 / \
@@ -469,7 +469,7 @@ A recursive function has two parts:
 **Example**
 In OCaml, you must explicitly use the `rec` keyword when defining a recursive function:
 
-```ml
+```ocaml
 let rec factorial n =
   if n = 0 then 1 (* base case *)
   else n * factorial (n - 1);; (* recursive case *)
@@ -489,14 +489,14 @@ In OCaml, operators are essentially functions. This means you can use them in th
 
 1. **Infix Notation**: This is the typical way operators are used, where the operator is placed between the operands.
 
-   ```ml
+   ```ocaml
    1 + 5;;
    (* : int = 6 *)
    ```
 
 2. **Prefix Notation**: By enclosing the operator in parentheses, you can use it as a function, passing the operands as arguments.
 
-   ```ml
+   ```ocaml
    ( + ) 1 5;;
    (* : int = 6 *)
    ```
@@ -505,7 +505,7 @@ In OCaml, operators are essentially functions. This means you can use them in th
 
 - **Partial Application**: You can partially apply operators to create new functions.
 
-  ```ml
+  ```ocaml
   let add_five = ( + ) 5;;
   (* val add_five : int -> int = <fun> *)
 
@@ -519,13 +519,13 @@ In OCaml, operators are essentially functions. This means you can use them in th
 
 The application operator (`@@`) allows you to avoid writing parentheses, making expressions cleaner and easier to read. It is defined as follows:
 
-```ml
+```ocaml
 let (@@) f g = f g
 ```
 
 Consider the following function and expressions:
 
-```ml
+```ocaml
 let add x y = x + y;;
 
 add 2 5 * 4;;
@@ -542,13 +542,13 @@ add 2 @@ 5 * 4;;
 
 The reverse application operator, also known as the pipeline operator (`|>`), allows you to write operations from left to right in a more natural and readable manner. It is defined as follows:
 
-```ml
+```ocaml
 let (|>) f g = g f
 ```
 
 Consider the following functions and expressions:
 
-```ml
+```ocaml
 let add x y = x + y;;
 let square x = x * x;;
 
@@ -571,7 +571,7 @@ Lists in OCaml provide a simple and efficient way to manage sequences of element
 
 A list in OCaml is defined using square brackets, with elements separated by semicolons. Lists can contain elements of any type, but all elements in a single list must be of the same type.
 
-```ml
+```ocaml
 [];;
 (* : 'a list = [] *)
 
@@ -598,7 +598,7 @@ A list in OCaml is defined using square brackets, with elements separated by sem
 
 Appends an element in front of a list:
 
-```ml
+```ocaml
 0 :: [1; 2; 3];;
 (* : int list = [0; 1; 2; 3] *)
 ```
@@ -613,7 +613,7 @@ Appends an element in front of a list:
 
 Combines two lists into one:
 
-```ml
+```ocaml
 [0; 1] @ [2; 3];;
 (* : int list = [0; 1; 2; 3] *)
 ```
@@ -625,7 +625,7 @@ The List module in OCaml provides a collection of functions to work with lists. 
 **List.map**: Applies a given function to each element of a list and returns a new list with the results.  
 Usage: `List.map func list`
 
-```ml
+```ocaml
 List.map (fun x -> x * x) [1; 2; 3; 4];;
 (* : int list = [1; 4; 9; 16] *)
 ```
@@ -633,7 +633,7 @@ List.map (fun x -> x * x) [1; 2; 3; 4];;
 **List.mem**: Checks whether a given element is a member of a list.  
 Usage: `List.mem element list`
 
-```ml
+```ocaml
 List.mem 3 [1; 2; 3; 4];;
 (* : bool = true *)
 ```
@@ -641,7 +641,7 @@ List.mem 3 [1; 2; 3; 4];;
 **List.find**: Returns the first element of a list that satisfies a given predicate. Throws a `Not_found` exception if no such element is found.  
 Usage: `List.find predicate list`
 
-```ml
+```ocaml
 List.find (fun x -> x mod 2 = 0) [1; 3; 5; 4; 6];;
 (* : int = 4 *)
 ```
@@ -649,7 +649,7 @@ List.find (fun x -> x mod 2 = 0) [1; 3; 5; 4; 6];;
 **List.filter**: Returns a new list containing only the elements that satisfy a given predicate.  
 Usage: `List.filter predicate list`
 
-```ml
+```ocaml
 List.filter (fun x -> x mod 2 = 0) [1; 2; 3; 4; 5];;
 (* : int list = [2; 4] *)
 ```
@@ -657,7 +657,7 @@ List.filter (fun x -> x mod 2 = 0) [1; 2; 3; 4; 5];;
 **List.length**: Returns the length of a list.  
 Usage: `List.length`
 
-```ml
+```ocaml
 List.length [1; 2; 3];;
 (* : int = 3 *)
 ```
@@ -665,7 +665,7 @@ List.length [1; 2; 3];;
 **List.fold_left and List.fold_right**: Fold functions that reduce a list to a single value using a binary function.  
 Usage: `List.fold_left func acc list`
 
-```ml
+```ocaml
 List.fold_left (fun acc x -> acc + x) 0 [1; 2; 3; 4];;
 (* : int = 10 *)
 ```
@@ -678,14 +678,14 @@ Tuples are a simple and useful way to aggregate data, which can be of different 
 
 Here is how you can define a tuple:
 
-```ml
+```ocaml
 let alice = ("Alice", 30, "alice@email.com");;
 (* val alice : string * int * string = ("Alice", 30, "alice@email.com") *)
 ```
 
 Optionally, you can specify custom reusable types for your tuples:
 
-```ml
+```ocaml
 type person = string * int * string
 
 let alice : person = ("Alice", 30, "alice@email.com");;
@@ -697,7 +697,7 @@ let alice : person = ("Alice", 30, "alice@email.com");;
 
 ### Accessing Tuple Elements
 
-```ml
+```ocaml
 let (name, age, email) = alice;;
 (*
    val name : string = "Alice"
@@ -708,7 +708,7 @@ let (name, age, email) = alice;;
 
 Alternatively, you can use functions like `fst` and `snd` to access the first and second elements of a pair (a 2-element tuple):
 
-```ml
+```ocaml
 let point = (1, 3)
 
 let x = fst point
@@ -731,7 +731,7 @@ Records are a powerful way to group related data into a single unit with named f
 1. Create the type definition that specifies the names and types of the fields that the record will contain.
 2. Create instances of that record by specifying values for each field.
 
-```ml
+```ocaml
 type person = {
   name : string;
   age : int;
@@ -756,7 +756,7 @@ OCaml automatically knows that `paolo` is a `person`. You can explicitly state i
 
 **Direct Access**
 
-```ml
+```ocaml
 paolo.name;;
 (* : string = "paolo" *)
 
@@ -769,7 +769,7 @@ paolo.email;;
 
 **Destructuring**
 
-```ml
+```ocaml
 let { name; age } = paolo;;
 (*
    val name : string = "paolo"
@@ -809,7 +809,7 @@ Parametric polymorphism is a way to write generic, type-agnostic code. This is a
 
 Type variables are placeholders for types. They allow you to define functions and data structures that can operate on any type. In OCaml, type variables are typically denoted by single letters like `'a`, `'b`, etc., often read as _alpha_, _beta_, etc.
 
-```ml
+```ocaml
 let identity x = x;;
 (* val identity : 'a -> 'a *)
 ```
@@ -820,14 +820,14 @@ This _type variable_ allows the identity function to operate on values of any ty
 
 Maybe you remember the type definition of the empty list:
 
-```ml
+```ocaml
 [];;
 (* : 'a list = [] *)
 ```
 
 Here it's saying: "I'm a list that can be of any type", but it gets specialized when it receives elements:
 
-```ml
+```ocaml
 "hola" :: [];;
 (* : string list = ["hola"] *)
 ```
@@ -838,7 +838,7 @@ Here it's saying: "I'm a list that can be of any type", but it gets specialized 
 
 Like values you can give name to types:
 
-```ml
+```ocaml
 type point = float * float;;
 (* type point = float * float *)
 
@@ -852,7 +852,7 @@ let p1 : point = (1., 2.);;
 
 OCaml supports features called **variants** or **algebraic data types** (ADTs) that are very similar to **enums** in other languages. Variants are used to define types that can take on different forms, allowing you to create new type definitions.
 
-```ml
+```ocaml
 type primary_color = Red | Green | Blue;;
 (* type primary_color = Red | Green | Blue *)
 
@@ -868,7 +868,7 @@ Here we are defining a custom type `primary_color` that can be one of three opti
 
 Constructors can optionally carry data, allowing you to create more complex data structures. Let's see the next example:
 
-```ml
+```ocaml
 type shape =
   | Point;;                     (* A point with no additional data *)
   | Circle of float             (* Circle with a radius *)
@@ -906,7 +906,7 @@ Pattern matching allows you to inspect the structure of data and extract values 
 
 The basic syntax for pattern matching in OCaml is:
 
-```ml
+```ocaml
 let fun_name expression =
 match expression with
 | pattern1 -> result1 (* we call this a branch *)
@@ -931,7 +931,7 @@ The entire match expression must be type-consistent, meaning all branches must r
 
 Pattern matching on values are very similar to switch cases but more powerful. In fact understanding switch cases is a good place to start.
 
-```ml
+```ocaml
 let describe_number x =
   match x with
   | 0 -> "Zero"
@@ -967,7 +967,7 @@ Lists can only be:
 
 So we can pattern match against those to ways:
 
-```ml
+```ocaml
 let first_element lst =
   match lst with
   | [] -> "empty"
@@ -992,7 +992,7 @@ first_element ["sapori"; "colori"];;
 **Side Note:**  
 In fact, pattern matching is type exaustive, preventing to write runtime error prone code:
 
-```ml
+```ocaml
 let first_element lst =
   match lst with
   | [] -> "empty";;
@@ -1007,7 +1007,7 @@ let first_element lst =
 
 ### Matching on Tuples
 
-```ml
+```ocaml
 let has_zero (x, y) =
   match (x, y) with
   | (0, 0) -> "Both are zero"
@@ -1029,7 +1029,7 @@ has_zero (0, 1);;
 
 ### Example: Matching on Records
 
-```ml
+```ocaml
 type student = {
   name : string;
   grad_year : int;
@@ -1055,7 +1055,7 @@ name_with_year giorgio;;
 
 ### Example: Matching on Variants
 
-```ml
+```ocaml
 type shape =
   | Circle of float
   | Rectangle of float * float
@@ -1086,7 +1086,7 @@ area @@ Rectangle (2.0, 4.0);;
 
 Let's calculate the area of shapes when we have its cartesian points:
 
-```ml
+```ocaml
 type point = float * float
 
 type shape =
@@ -1114,7 +1114,7 @@ area @@ Circle { center = (0. , 0.); radius = 1. };;
 
 In this case we are extracting data from the record of a variant constructor but we can pattern match even more :
 
-```ml
+```ocaml
 type point = float * float
 
 type shape =
@@ -1138,7 +1138,7 @@ You can simplify the syntax of functions that use pattern matching by leveraging
 
 Consider the following function definition:
 
-```ml
+```ocaml
 let f x y z =
   match z with
   | ...
@@ -1146,14 +1146,14 @@ let f x y z =
 
 You can rewrite it using the `function` keyword to streamline the pattern matching:
 
-```ml
+```ocaml
 let f x y = function
   | ...
 ```
 
 Let's take the previous example:
 
-```ml
+```ocaml
 type shape =
   | Circle of float
   | Rectangle of float * float
@@ -1173,7 +1173,7 @@ let area = function    (* see the change here *)
 - **Function Definition**: The `area` function uses the `function` keyword to directly pattern match on the `shape` type. This eliminates the need for an explicit match expression.
 - **Usage**:
 
-```ml
+```ocaml
 area @@ Circle 3.0;;
 (* : float = 28.27... *)
 area @@ Rectangle (2.0, 4.0);;
@@ -1184,7 +1184,7 @@ area @@ Rectangle (2.0, 4.0);;
 
 Here's another example that demonstrates the use of the `function` keyword with a recursive function to sum the elements of a list:
 
-```ml
+```ocaml
 let rec sum = function
  | [] -> 0
  | h :: t -> h + sum t
@@ -1195,7 +1195,7 @@ let rec sum = function
 - **Function Definition**: The `sum` function uses the `function` keyword to pattern match on the list. If the list is empty (`[]`), it returns `0`. Otherwise, it adds the head (`h`) to the sum of the tail (`t`).
 - **Usage**:
 
-```ml
+```ocaml
 sum [1; 2; 3; 4];;
 (* : int = 10 *)
 ```

@@ -60,7 +60,7 @@ Let's convert a non-tail-recursive factorial function into a tail-recursive one.
 
 #### Non-Tail-Recursive Version:
 
-```ml
+```ocaml
 let rec factorial n =
   if n = 0 then 1
   else n * factorial (n - 1)  (* Multiplication is the last operation, so it's not tail recursive *)
@@ -68,7 +68,7 @@ let rec factorial n =
 
 #### Tail-Recursive Version:
 
-```ml
+```ocaml
 let rec factorial_tail n acc =
   if n = 0 then acc
   else factorial_tail (n - 1) (acc * n)  (* The factorial_tail call is the last operation, so it's tail recursive *)
@@ -86,7 +86,7 @@ let factorial n = factorial_tail n 1;;
 
 A common way to write this in OCaml is:
 
-```ml
+```ocaml
 let factorial n =
   let rec factorial_tail n acc =
     if n = 0 then acc
@@ -101,7 +101,7 @@ let factorial n =
 
 In OCaml, you can create recursive variants to build more complex data structures. Let's create our own version of lists:
 
-```ml
+```ocaml
 type intList =
   | Nil
   | Cons of int * intList;;
@@ -114,7 +114,7 @@ Cons (1, Cons (2, Cons (3, Nil)));;
 
 As you can see, `intList` is recursive, allowing the creation of recursive data structures, such as a list of integers. Let's see another example, this time creating a list of strings:
 
-```ml
+```ocaml
 type stringList =
   | Nil
   | Cons of string * stringList;;
@@ -127,7 +127,7 @@ Cons ("hola", Cons ("mundo", Nil));;
 
 To avoid creating a new variant for each type of list, we can use polymorphism to parameterize any kind of list:
 
-```ml
+```ocaml
 type 'a customList =
   | Nil
   | Cons of 'a * 'a customList;;
@@ -145,7 +145,7 @@ To achieve this, we add the `'a` **type variable** in front of the type name as 
 
 We can also generalize subsequent operations for any type of list:
 
-```ml
+```ocaml
 let length lst =
   let rec length_tail acc = function
     | Nil -> acc
@@ -166,7 +166,7 @@ This type of variant is called parametric because it adapts to its changeable pa
 
 In fact, this is how lists are defined in OCaml's standard library:
 
-```ml
+```ocaml
 type 'a list =
   | []
   | (::) of 'a * 'a list;;
@@ -202,7 +202,7 @@ The option type represents a value that may or may not be present. It handles th
 
 The option type is a parametric variant that can have one of two forms:
 
-```ml
+```ocaml
 type 'a option =
   | Some of 'a
   | None
@@ -218,7 +218,7 @@ The **option type** is useful when a function might not return a valid result.
 
 #### Example: Prevent Finding an Element in an Empty List
 
-```ml
+```ocaml
 let rec find_element el = function
   | [] -> None
   | h :: t -> if el = h then Some h else find_element el t;;
@@ -243,7 +243,7 @@ The result type represents a computation that can succeed with a value or fail w
 
 The result type is also a **parametric variant** that can have one of two forms:
 
-```ml
+```ocaml
 type ('a, 'b) result =
   | Ok of 'a
   | Error of 'b
@@ -258,7 +258,7 @@ The result type is useful when you need to produce specific kinds of errors, mak
 
 #### Example: Throwing an Error Value When Trying to Get the First Element in an Empty List
 
-```ml
+```ocaml
 let first_element = function
   | [] -> Error "Empty list"
   | h :: t -> Ok h;;
@@ -271,7 +271,7 @@ first_element [];;
 
 #### Example: Throwing an Error Value for Division by Zero
 
-```ml
+```ocaml
 let safe_divide x y =
   if y = 0 then Error "division by 0"
   else Ok (x / y);;
@@ -367,7 +367,7 @@ safe_div 3. 0.;;
 
 If you need the value, you can use the built-in `Result` module to help you and pass a default value in case an error occurs:
 
-```ml
+```ocaml
 let value = Result.value (safe_div 10. 0.) ~default:0.;;
 ```
 
@@ -390,7 +390,7 @@ A reference is a pointer to a typed location in memory.
 
 Let's see the most basic operations you can do with references:
 
-```ml
+```ocaml
 let value = ref 123;;  (** Create a new ref **)
 (* val value : int ref = {contents = 123} *)
 
@@ -418,14 +418,14 @@ Aliasing occurs when two or more references point to the same location in memory
 
 #### Example:
 
-```ml
+```ocaml
 let age = ref 32
 let my_age = age;;  (** aliases **)
 ```
 
 Both `age` and `my_age` point to the same location in memory. As a result, changing the content of `age` also changes `my_age`:
 
-```ml
+```ocaml
 age := 34;;
 
 !my_age;;
@@ -442,7 +442,7 @@ Now you are prepared to understand the distinction between physical and structur
 
 Evaluates the same location in memory:
 
-```ml
+```ocaml
 let r1 = ref 123
 let r2 = ref 123;;
 
@@ -460,7 +460,7 @@ It uses the `==` and `!=` operators.
 
 Evaluates the same content in memory:
 
-```ml
+```ocaml
 let r1 = ref 123
 let r2 = ref 123;;
 
@@ -483,7 +483,7 @@ It uses the `=` and `<>` operators.
 
 The sequence operator allows you to execute multiple expressions in sequence, returning the value of the last expression.
 
-```ml
+```ocaml
 expression1 ; expression2 ; expression3
 ```
 
@@ -491,7 +491,7 @@ In this sequence, all expressions are evaluated in order, but only the value of 
 
 #### Example:
 
-```ml
+```ocaml
 let result =
   print_string "Hello, ";
   print_string "OCaml!";
@@ -510,7 +510,7 @@ This evaluates to:
 
 #### Counter Example
 
-```ml
+```ocaml
 let counter = ref 0
 
 let next = fun () ->
@@ -521,14 +521,14 @@ let next = fun () ->
 
 Or its syntactic sugar version:
 
-```ml
+```ocaml
 let next () =
   incr counter;
   !counter
 ;;
 ```
 
-```ml
+```ocaml
 next();;
 (* : int = 1 *)
 next();;
@@ -539,7 +539,7 @@ Writing side effects in OCaml is beautiful. It uses special syntax that makes it
 
 Bear in mind that this is not the only way to build a counter in OCaml. It can also be created through a closure:
 
-```ml
+```ocaml
 let next =
   let counter = ref 0 in
   fun () ->
@@ -552,14 +552,14 @@ let next =
 
 ## Mutable Record Fields
 
-```ml
+```ocaml
 type point = { x : float; y : float; mutable color : string }
 
 let p1 = { x = 1.; y = 2.; color = "blue" };;
 (* val p1 : point = { x = 1.; y = 2.; color = "blue" } *)
 ```
 
-```ml
+```ocaml
 p1.color <- "red";;
 (* : unit = () *)
 
@@ -569,7 +569,7 @@ p1;;
 
 This is possible because we declared `color` as a **mutable** field.
 
-```ml
+```ocaml
 p1.x <- 0.;;
 (* Error: The record field x is not mutable *)
 ```
@@ -578,7 +578,7 @@ The `<-` operator is used to mutate fields.
 
 References in OCaml are essentially implemented as records with mutable fields:
 
-```ml
+```ocaml
 type 'a ref = { mutable contents : 'a }
 let ref x = { contents = x }  (* Returns a record with a mutable value *)
 
@@ -592,30 +592,30 @@ let (:=) r newval = r.contents <- newval  (* Updates the mutable field 'contents
 
 Arrays provide a way to store a fixed-size collection of elements of the same type, allowing for efficient random access and updates. Unlike lists, arrays are mutable, meaning you can change the value of an element after the array has been created.
 
-```ml
+```ocaml
 let numbers = [|1; 2; 3; 4; 5|];;
 (* val numbers : int array = [|1; 2; 3; 4; 5|] *)
 ```
 
 ## Creating Arrays
 
-```ml
+```ocaml
 let zeros = Array.make 5 0  (* zeros is [|0; 0; 0; 0; 0|] *)
 ```
 
-```ml
+```ocaml
 let squares = Array.init 5 (fun i -> i * i)  (* squares is [|0; 1; 4; 9; 16|] *)
 ```
 
 ## Accessing Array Elements
 
-```ml
+```ocaml
 let first_element = numbers.(0)  (* first_element is 1 *)
 ```
 
 ## Modifying Array Elements
 
-```ml
+```ocaml
 numbers.(0) <- 10;
 (* numbers is now [|10; 2; 3; 4; 5|] *)
 ```
@@ -627,7 +627,7 @@ numbers.(0) <- 10;
 Returns the length of a given array.
 Usage: `Array.length array`
 
-```ml
+```ocaml
 Array.length [|1; 2; 3|];;
 (* : int = 3 *)
 ```
@@ -637,7 +637,7 @@ Array.length [|1; 2; 3|];;
 Applies a function to each element of an array and returns a new array with the results.
 Usage: `Array.map function array`
 
-```ml
+```ocaml
 Array.map (fun x -> x * 2) [|1; 2; 3|];;
 (* : int array = [|2; 4; 6|] *)
 ```
@@ -647,7 +647,7 @@ Array.map (fun x -> x * 2) [|1; 2; 3|];;
 Applies a given function to each element of an array for side effects, such as printing.
 Usage: `Array.iter func array`
 
-```ml
+```ocaml
 Array.iter (fun x -> Printf.printf "%d " x) [|1; 2; 3; 4|];;
 (*  1 2 3 4 : unit = () *)
 ```
@@ -657,7 +657,7 @@ Array.iter (fun x -> Printf.printf "%d " x) [|1; 2; 3; 4|];;
 Fold functions that reduce an array to a single value using a binary function.
 Usage: `Array.fold_left func acc array`
 
-```ml
+```ocaml
 Array.fold_left (fun acc x -> acc + x) 0 [|1; 2; 3; 4|];;
 (* : int = 10 *)
 ```
@@ -666,7 +666,7 @@ Array.fold_left (fun acc x -> acc + x) 0 [|1; 2; 3; 4|];;
 
 or a more robust version:
 
-```ml
+```ocaml
 let next start =
   let counter = ref start in
   fun () ->
@@ -680,7 +680,7 @@ count ();;
 count ();;
 ```
 
-```ml
+```ocaml
 let counter_builder start =
   let counter = ref start in
   fun num ->
