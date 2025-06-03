@@ -1,19 +1,27 @@
-open Math
-
-let () =
-  let result = Calc.add 2 3 in
-  print_endline (Int.to_string result);
-  
-  let result = Calc.sub 3 1 in
-  print_endline (Int.to_string result);
-
-  let result = Calc.safe_div 300. 0. in (* Implementation details on Practical OCaml.md*)
-  let value = Result.value result ~default:0. in
-  print_endline (Float.to_string @@ value)
 
 
-(* open ANSITerminal
+type 'a tree =
+  | Leaf
+  | Node of 'a * 'a tree * 'a tree
 
-let () =
-  print_string [Bold; green] "\n\nHello in bold green!\n";
-  print_string [red] "This is in red.\n" *)
+let t =
+  Node (1, Node (2, Leaf, Leaf), Node (3, Leaf, Leaf))
+
+let rec size = function
+  | Leaf -> 0
+  | Node (_, l, r) -> 1 + size l + size r
+
+let rec sum = function
+  | Leaf -> 0
+  | Node (v, l, r) -> v + sum l + sum r
+
+let rec map f = function
+  | Leaf -> Leaf
+  | Node (v, l, r) -> Node (f v, map f l, map f r)
+
+let rec fold acc f = function
+    | Leaf -> acc
+    | Node (v, l, r) -> f v (fold acc f l) (fold acc f r)
+
+let sum = fold 0 (fun x y z -> x + y + z)
+
